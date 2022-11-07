@@ -7,6 +7,7 @@ installed packages :
 pip install djangorestframework
 pip install django-rest-knox
 pip install django
+python -m pip install django-cors-headers
 
 run server :
 python .\manage.py runserver
