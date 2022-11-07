@@ -56,6 +56,7 @@ MIDDLEWARE = [
 ]
 CORS_ALLOW_ALL_ORIGINS = True
 ROOT_URLCONF = 'split1.urls'
+ALLOWED_HOSTS = ['*']
 
 TEMPLATES = [
     {
