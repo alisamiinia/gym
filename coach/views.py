@@ -9,7 +9,7 @@ from .serializers import CoachSerializer
 #from .models import Gym, Course
 #from .serializers import GymSerializer, CourseSerializer,CourseReadSerializer
 
-blacklist =["123456789","111111111","222222222","333333333","444444444"]
+blacklist =["09123456789","09123456788","09123456787","09123456786","09123456785"]
 
 @api_view(['GET'])
 def coach_view(request):
@@ -36,8 +36,6 @@ def coach_post(request):
             return Response("reg code in black list", status=status.HTTP_403_FORBIDDEN)
     else:
         return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    ############# blacklist baayad ezafe she ##########
 
 @api_view(['PUT', 'GET', 'DELETE'])
 def get_update_delete_coach(request, pk):
