@@ -41,12 +41,9 @@ INSTALLED_APPS = [
     'knox',
     'accounts',
     'corsheaders',
-<<<<<<< HEAD
     'gym',
-=======
 #    'pillow',
     'coach',
->>>>>>> coach
 ]
 
 MIDDLEWARE = [

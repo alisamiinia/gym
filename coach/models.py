@@ -6,10 +6,11 @@ class Coach(models.Model):
     age = models.IntegerField()
     weight = models.IntegerField()
     gender = models.IntegerField()
+    #userID =
     #post = models.CharField(max_length=40)
-    picUrl = models.ImageField(blank = True, null = True)
-    details = models.ManyToManyField
-    achievements = models.ManyToManyField
+    #picUrl = models.ImageField(blank = True, null = True)
+    #details = models.ManyToManyField
+    #achievements = models.ManyToManyField
     
     created_at = models.DateTimeField(null=True, blank=True)
     updated_at = models.DateTimeField(null=True, blank=True)
