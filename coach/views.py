@@ -11,30 +11,30 @@ from .serializers import CoachSerializer
 
 blacklist =["123456789","111111111","222222222","333333333","444444444"]
 
-@api_view(['GET', 'POST'])
+@api_view(['GET'])
 def coach_view(request):
-    if request.method == "GET":
         person = Coach.objects.all()
         return Response(CoachSerializer(person, many=True).data,
                     status=status.HTTP_200_OK)
-    elif request.method == "POST":
-        data = {
-            'fullName': request.data['fullName'],
-            'description': request.data['description'],
-            'age': request.data['age'],
-            'weight': request.data['weight'],
-            'gender': request.data['gender']
-            #'post': request.data['post']
-        }
-        ser = CoachSerializer(data=data)
-        if ser.is_valid():
-            ser.save()
-            return Response(ser.data, status=status.HTTP_201_CREATED)
-        else:
-            return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
         
+@api_view(['POST'])
+def coach_post(request):
+    data = {
+        'fullName': request.data['fullName'],
+        'description': request.data['description'],
+        'age': request.data['age'],
+        'weight': request.data['weight'],
+        'gender': request.data['gender']
+        #'post': request.data['post']
+    }
+    ser = CoachSerializer(data=data)
+    if ser.is_valid():
+        ser.save()
+        return Response(ser.data, status=status.HTTP_201_CREATED)
+    else:
+        return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
+    
     ############# blacklist baayad ezafe she ##########
-    ############# information view?? ##########
 
 @api_view(['PUT', 'GET', 'DELETE'])
 def get_update_delete_coach(request, pk):
