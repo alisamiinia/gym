@@ -41,7 +41,12 @@ INSTALLED_APPS = [
     'knox',
     'accounts',
     'corsheaders',
+<<<<<<< HEAD
     'gym',
+=======
+#    'pillow',
+    'coach',
+>>>>>>> coach
 ]
 
 MIDDLEWARE = [
@@ -137,3 +142,6 @@ REST_FRAMEWORK = {
         'knox.auth.TokenAuthentication',
     ]
 }
+
+MEDIA_URL = 'media/'
+MEDIA_ROOT = 'media'
