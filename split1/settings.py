@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'knox',
     'accounts',
     'corsheaders',
-    'pillow',
+#    'pillow',
+    'coach',
 ]
 
 MIDDLEWARE = [
