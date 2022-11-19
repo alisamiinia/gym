@@ -22,5 +22,6 @@ from split1 import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('accounts.urls')),
-    path('gym/',include('gym.urls'))
+    path('gym/',include('gym.urls')),
+    path('coach/',include('coach.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
