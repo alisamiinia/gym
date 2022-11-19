@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'knox',
     'accounts',
     'corsheaders',
+    'gym',
 ]
 
 MIDDLEWARE = [
