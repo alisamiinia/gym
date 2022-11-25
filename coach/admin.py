@@ -1,3 +1,8 @@
 from django.contrib import admin
+from .models import (Gym,Coach, Card)
 
-# Register your models here.
+
+
+admin.site.register(Gym)
+admin.site.register(Coach)
+admin.site.register(Card)

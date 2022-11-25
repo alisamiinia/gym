@@ -17,6 +17,10 @@ def coach_view(request):
         return Response(CoachSerializer(person, many=True).data,
                     status=status.HTTP_200_OK)
         
+        
+        
+        
+        
 @api_view(['POST'])
 def coach_post(request):
     data = {
@@ -36,6 +40,11 @@ def coach_post(request):
             return Response("reg code in black list", status=status.HTTP_403_FORBIDDEN)
     else:
         return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    
+    
+    
+    
 
 @api_view(['PUT', 'GET', 'DELETE'])
 def get_update_delete_coach(request, pk):
