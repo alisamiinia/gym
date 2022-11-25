@@ -1,0 +1,9 @@
+see description :
+ https://drive.google.com/file/d/1-rrkxg4xp06irTA7aWNHf8JQ_S473z7W/view?usp=sharing
+
+
+
+'get-post-gym'                  :    name , adress,phone,gym_reg_code
+'get-post-course'               :    name ,time,Gym
+'course-info'
+'get-update-delete-gym/<int:pk>'
