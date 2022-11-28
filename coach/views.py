@@ -23,23 +23,13 @@ def coach_view(request):
         
 @api_view(['POST'])
 def coach_post(request):
-    data = {
-        'fullName': request.data['fullName'],
-        'description': request.data['description'],
-        'age': request.data['age'],
-        'weight': request.data['weight'],
-        'gender': request.data['gender']
-        #'post': request.data['post']
-    }
-    ser = CoachSerializer(data=data)
-    if ser.is_valid():
-        #if str(request.data['phoneNumber']) not in blacklist:
-        ser.save()
-        return Response(ser.data, status=status.HTTP_201_CREATED)
-        #else :
-            #return Response("reg code in black list", status=status.HTTP_403_FORBIDDEN)
-    #else:
-        #return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
+    if request.method == "POST":
+        ser = CoachSerializer(data=request.data)
+        if ser.is_valid():
+            ser.save()
+            return Response(ser.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
     
     
     

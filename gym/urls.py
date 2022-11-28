@@ -13,6 +13,7 @@ urlpatterns = [
     path('readcardsviews', views.readcardsview),
     path('get-cards', views.get_cards),
     path('post-card', views.post_card),
+    path('gym-with-coaches', views.gym_with_coaches),
     
 ]
 router = DefaultRouter()

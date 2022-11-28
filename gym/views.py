@@ -125,7 +125,7 @@ def get_gym_classes(request):
 
 
 #yasin
-@api_view(['GET', 'POST'])
+@api_view(['GET'])
 def get_cards(request):
     if request.method == "GET":
         course = Card.objects.all()
@@ -188,3 +188,12 @@ class GymViewSet(viewsets.ModelViewSet):
         print("---- Destroy : {}".format(instance.name))
         obj = super().destroy(request, *args, **kwargs)
         return obj
+    
+@api_view(['GET'])
+def gym_with_coaches(request):
+    if request.method == "GET":
+        person = Gym.objects.all()
+        return Response(GymWithCoachesSerializer(person, many=True).data,
+                    status=status.HTTP_200_OK)
+
+    

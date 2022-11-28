@@ -14,6 +14,7 @@ class Coach(models.Model):
     age = models.IntegerField()
     weight = models.IntegerField()
     gender = models.IntegerField()
+    user=models.OneToOneField(User,on_delete=models.CASCADE)
     #phoneNumber = models.IntegerField()
     #userID = models.ForeignKey(user, on_delete=models.CASCADE)
     
@@ -25,7 +26,7 @@ class Coach(models.Model):
     
     created_at = models.DateTimeField(null=True, blank=True)
     updated_at = models.DateTimeField(null=True, blank=True)
-    
+    gym = models.CharField(null=True, blank=True,max_length=30)
     
     
     
