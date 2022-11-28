@@ -1,8 +1,9 @@
 from django.contrib import admin
-from .models import (Gym,Coach, Card)
+
+from .models import (Coach)
 
 
-
-admin.site.register(Gym)
+#yasin
+#admin.site.register(Gym)
 admin.site.register(Coach)
-admin.site.register(Card)
+#admin.site.register(Card)

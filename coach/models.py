@@ -1,5 +1,6 @@
 from django.db import models
-from accounts.models import User ################################
+from accounts.models import User################################
+
 
 
 
@@ -28,11 +29,7 @@ class Coach(models.Model):
     
     
     
-class Gym (models.Model):
-    pass
+#class Gym (models.Model):
+    #pass
     
-class Card(models.Model):
-    coach=models.ForeignKey(Coach,on_delete=models.SET_NULL,null=True)
-    gym=models.ForeignKey(Gym,on_delete=models.CASCADE)
-    user=models.ForeignKey(User,on_delete=models.CASCADE)
-    
+

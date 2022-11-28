@@ -1,6 +1,7 @@
 from rest_framework import serializers
-from .models import Coach, Card, Gym
-from accounts.models import User 
+from .models import Coach
+from accounts.models import User
+
 
 
 
@@ -18,17 +19,4 @@ class UserGymSerializer(serializers.ModelSerializer):
 
 
 
-class GymSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Gym
-        fields = '__all__'
-        
 
-
-class CardSerializer(serializers.ModelSerializer):
-    coach=CoachSerializer()
-    gym=CoachSerializer()
-    user=UserGymSerializer()
-    class Meta:
-        model = Card
-        fields = ['coach', 'gym', 'user']

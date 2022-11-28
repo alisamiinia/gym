@@ -5,7 +5,7 @@ from rest_framework import status
 from rest_framework import viewsets, permissions
 
 from .models import Coach
-from .serializers import CoachSerializer
+from .serializers import *
 #from .models import Gym, Course
 #from .serializers import GymSerializer, CourseSerializer,CourseReadSerializer
 
@@ -33,13 +33,13 @@ def coach_post(request):
     }
     ser = CoachSerializer(data=data)
     if ser.is_valid():
-        if str(request.data['phoneNumber']) not in blacklist:
-            ser.save()
-            return Response(ser.data, status=status.HTTP_201_CREATED)
-        else :
-            return Response("reg code in black list", status=status.HTTP_403_FORBIDDEN)
-    else:
-        return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
+        #if str(request.data['phoneNumber']) not in blacklist:
+        ser.save()
+        return Response(ser.data, status=status.HTTP_201_CREATED)
+        #else :
+            #return Response("reg code in black list", status=status.HTTP_403_FORBIDDEN)
+    #else:
+        #return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
     
     
     
@@ -68,3 +68,6 @@ def get_update_delete_coach(request, pk):
     elif request.method == 'DELETE':
         coach.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+

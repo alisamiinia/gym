@@ -3,9 +3,13 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
 from rest_framework import viewsets, permissions
+from django.db.models import Q
 
-from .models import Gym, Course
+from .models import Gym, Course,Card
 from .serializers import GymSerializer, CourseSerializer,CourseReadSerializer
+from .serializers import *
+from coach.models import Coach
+
 
 blacklist =["123456789","111111111","222222222","333333333","444444444"]
 
@@ -79,3 +83,108 @@ def get_update_delete_gym(request, pk):
     elif request.method == 'DELETE':
         gym.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+#search gym by name
+@api_view(['GET'])
+def search_gym_name(request):
+    gyms = Gym.objects.filter(name=request.query_params['name'])
+    if gyms:
+        ser = GymSerializer(gyms, many=True)
+        return Response(ser.data, status=status.HTTP_200_OK)
+    else:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+#search gym by adress
+@api_view(['GET'])
+def search_gym_adress(request):
+    gyms = Gym.objects.filter(adress=request.query_params['adress'])
+    if gyms:
+        ser = GymSerializer(gyms, many=True)
+        return Response(ser.data, status=status.HTTP_200_OK)
+    else:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+
+
+
+
+#get classes created by gym
+@api_view(['GET'])
+def get_gym_classes(request):
+    classes =Course.objects.filter(gym=request.query_params['gym'])
+    if classes:
+        ser = CourseSerializer(classes, many=True)
+        return Response(ser.data, status=status.HTTP_200_OK)
+    else:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+
+
+
+
+#yasin
+@api_view(['GET', 'POST'])
+def get_cards(request):
+    if request.method == "GET":
+        course = Card.objects.all()
+        return Response(CardSerializer(course, many=True).data,
+                      status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def post_card(request):        
+    if request.method == "POST":
+        ser = CardSerializer(data=request.data)
+        if ser.is_valid():
+            ser.save()
+            return Response(ser.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+def readcardsview(request):
+    coach = Coach.objects.all()
+    gym= Gym.objects.all()
+    return Response(CardReadSerializer(coach, many=True).data,
+                    status=status.HTTP_200_OK)
+
+
+
+
+class GymViewSet(viewsets.ModelViewSet):
+    queryset = Gym.objects.all()
+    serializer_class = GymSerializer
+    http_method_names = ['get', 'post', 'put', 'delete']
+
+    search_fields = ('name', )
+    ordering_fields = '__all__'
+
+    def list(self, request, *args, **kwargs):
+        objs = super().list(request, *args, **kwargs)
+        print("---- List ----")
+        return objs
+
+    def create(self, request, *args, **kwargs):
+        obj = super().create(request, *args, **kwargs)
+        print("---- Create ----")
+        return obj
+
+    def update(self, request, *args, **kwargs):
+        obj = super().update(request, *args, **kwargs)
+        instance = self.get_object()
+        print("---- Update : {}".format(instance.name))
+        return obj
+
+    def retrieve(self, request, *args, **kwargs):
+        obj = super().retrieve(request, *args, **kwargs)
+        instance = self.get_object()
+        print("---- Retrieve : {}".format(instance.name))
+        return obj
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        print("---- Destroy : {}".format(instance.name))
+        obj = super().destroy(request, *args, **kwargs)
+        return obj

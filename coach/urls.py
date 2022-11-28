@@ -6,4 +6,5 @@ urlpatterns = [
     path('get-coach', views.coach_view),
     path('post-coach', views.coach_post),
     path('get-update-delete-coach/<int:pk>', views.get_update_delete_coach),
+    
 ]
