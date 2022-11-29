@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator
 from django.db import models
-
+from coach.models import Coach
 
 # Create your models here.
 class User(AbstractUser):
@@ -26,6 +26,10 @@ class User(AbstractUser):
     gender = models.CharField(max_length=1,choices=sexuality_choises,default="M")
     role=models.CharField(max_length=8,choices=ROLE_CHOICES,default="Customer")
     
+    
+    def add_coach(self):
+        add_Coach_ins=Coach(user_id=self.pk)
+        add_Coach_ins.save()
     
     
     

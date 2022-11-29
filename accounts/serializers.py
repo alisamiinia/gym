@@ -4,7 +4,6 @@ from djoser.serializers import UserSerializer as BaseUserSerializer
 
 
 
-
 # class GetRoleSerializer(serializers.ModelSerializer):
 #     class Meta:
 #         model=User
@@ -21,8 +20,6 @@ class UserSerializer(serializers.ModelSerializer):
     
     def create(self, validated_data):
         user = User(
-           
-            
             first_name=validated_data['first_name'],
             last_name=validated_data['last_name'],
             username=validated_data['username'],
@@ -31,6 +28,8 @@ class UserSerializer(serializers.ModelSerializer):
         )
         user.set_password(validated_data['password'])
         user.save()
+        if validated_data['role'] == '1':
+            user.add_coach()
         return user
 
 

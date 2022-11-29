@@ -23,7 +23,7 @@ class Coach(models.Model):
     #details = models.ManyToManyField
     #achievements = models.ManyToManyField
     
-    #user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField('accounts.User', on_delete=models.CASCADE) # recursive error fixed
     
     created_at = models.DateTimeField(null=True, blank=True)
     updated_at = models.DateTimeField(null=True, blank=True)
