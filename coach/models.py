@@ -1,5 +1,5 @@
 from django.db import models
-from accounts.models import User ################################
+#from accounts.models import User ################################
 
 
 
@@ -23,8 +23,7 @@ class Coach(models.Model):
     #details = models.ManyToManyField
     #achievements = models.ManyToManyField
     
-
-
+    #user = models.OneToOneField(User, on_delete=models.CASCADE)
     
     created_at = models.DateTimeField(null=True, blank=True)
     updated_at = models.DateTimeField(null=True, blank=True)
@@ -36,6 +35,7 @@ class Detail(models.Model):
     
 class Achievement(models.Model):
     achievement = models.CharField(max_length=100)
+    year = models.CharField(max_length=11)
     Coach = models.ForeignKey(Coach, on_delete=models.CASCADE)
 
 class Gym (models.Model):

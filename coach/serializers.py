@@ -12,14 +12,14 @@ class DetailSerializer(serializers.ModelSerializer):
 class AchievementSerializer(serializers.ModelSerializer):
     class Meta:
         model = Achievement
-        fields = ['achievement']
+        fields = ['achievement', 'year']
 
 class CoachSerializer(serializers.ModelSerializer):
     detail_set = DetailSerializer(many=True)
     achievement_set = AchievementSerializer(many=True)
     class Meta:
         model = Coach
-        fields = ['fullName', 'description', 'picUrl', 'detail_set']
+        fields = ['description', 'picUrl', 'detail_set', 'achievement_set']
         
 
 class UserGymSerializer(serializers.ModelSerializer):
