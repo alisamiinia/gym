@@ -28,6 +28,7 @@ class UserSerializer(serializers.ModelSerializer):
         )
         user.set_password(validated_data['password'])
         user.save()
+        
         if validated_data['role'] == '1':
             user.add_coach()
         return user

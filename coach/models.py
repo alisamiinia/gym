@@ -4,7 +4,8 @@ from django.db import models
 
 
 class Coach(models.Model):
-    
+    #user_id = models.IntegerField()
+    user = models.OneToOneField('accounts.User', on_delete=models.CASCADE) # recursive error fixed
     # def __init__() -> None:
     #     super(User).__init__()
     #id = models.CharField(max_length=20)
@@ -23,7 +24,6 @@ class Coach(models.Model):
     #details = models.ManyToManyField
     #achievements = models.ManyToManyField
     
-    user = models.OneToOneField('accounts.User', on_delete=models.CASCADE) # recursive error fixed
     
     created_at = models.DateTimeField(null=True, blank=True)
     updated_at = models.DateTimeField(null=True, blank=True)

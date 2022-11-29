@@ -1,7 +1,9 @@
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 from coach.models import Coach
+from coach.serializers import CoachSerializer
 
 # Create your models here.
 class User(AbstractUser):
@@ -33,15 +35,16 @@ class User(AbstractUser):
     
     
     
+    
     def __str__(self) :
         return self.first_name+" "+self.last_name
     class Meta :
         ordering=['last_name']
         
         
-class Customer():
-    pass
-class Coach():
-    pass
-class Owner():
-    pass
+# class Customer():
+#     pass
+# class Coach():
+#     pass
+# class Owner():
+#     pass

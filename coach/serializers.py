@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Coach, Detail, Achievement
-from accounts.models import User
+#from accounts.models import User
 
 
 
@@ -22,10 +22,10 @@ class CoachSerializer(serializers.ModelSerializer):
         fields = ['description', 'picUrl', 'detail_set', 'achievement_set']
         
 
-class UserGymSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = '__all__' # tghir bede 
+# class UserGymSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = User
+#         fields = '__all__' # tghir bede 
         
 
 
