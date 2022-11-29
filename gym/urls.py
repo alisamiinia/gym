@@ -18,4 +18,5 @@ urlpatterns = [
 ]
 router = DefaultRouter()
 router.register('gym', views.GymViewSet)
+router.register('course', views.CourseViewSet)
 urlpatterns += router.urls

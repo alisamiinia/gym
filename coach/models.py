@@ -30,6 +30,7 @@ class Coach(models.Model):
     
     def json(self):
         return {
+            "id" : self.id,
             "name":self.fullName,
             "description":self.description
         }

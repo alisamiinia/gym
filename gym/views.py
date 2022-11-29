@@ -206,3 +206,40 @@ def gym_coaches(request, pk):
     print(coaches)
     return Response(coaches, status=status.HTTP_200_OK)
     
+
+class CourseViewSet(viewsets.ModelViewSet):
+    queryset = Course.objects.all()
+    serializer_class = CourseSerializer
+    http_method_names = ['get', 'post', 'put', 'delete']
+
+    search_fields = ('name', )
+    ordering_fields = '__all__'
+
+    def list(self, request, *args, **kwargs):
+        objs = super().list(request, *args, **kwargs)
+        print("---- List ----")
+        return objs
+
+    def create(self, request, *args, **kwargs):
+        obj = super().create(request, *args, **kwargs)
+        print("---- Create ----")
+        return obj
+
+    def update(self, request, *args, **kwargs):
+        obj = super().update(request, *args, **kwargs)
+        instance = self.get_object()
+        print("---- Update : {}".format(instance.name))
+        return obj
+
+    def retrieve(self, request, *args, **kwargs):
+        obj = super().retrieve(request, *args, **kwargs)
+        instance = self.get_object()
+        print("---- Retrieve : {}".format(instance.name))
+        return obj
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        print("---- Destroy : {}".format(instance.name))
+        obj = super().destroy(request, *args, **kwargs)
+        return obj
+    
