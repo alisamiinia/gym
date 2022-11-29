@@ -14,7 +14,7 @@ blacklist =["09123456789","09123456788","09123456787","09123456786","09123456785
 @api_view(['GET'])
 def coach_view(request):
         person = Coach.objects.all()
-        return Response(CoachSerializer(person, many=True).data,
+        return Response(CoachSerializer(person,many=True).data,
                     status=status.HTTP_200_OK)
         
         
