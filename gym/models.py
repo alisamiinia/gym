@@ -26,5 +26,5 @@ class Card(models.Model):
     coach=models.ForeignKey(Coach,on_delete=models.SET_NULL,null=True)
     gym=models.ForeignKey(Gym,on_delete=models.CASCADE)
     #user=models.ForeignKey(User,on_delete=models.CASCADE)
-    accepted = models.CharField(default="no",max_length=10)
+    accepted = models.BooleanField(default=False)
 

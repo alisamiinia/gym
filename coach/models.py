@@ -28,7 +28,11 @@ class Coach(models.Model):
     updated_at = models.DateTimeField(null=True, blank=True)
     gym = models.CharField(null=True, blank=True,max_length=30)
     
-    
+    def json(self):
+        return {
+            "name":self.fullName,
+            "description":self.description
+        }
     
 #class Gym (models.Model):
     #pass

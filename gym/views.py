@@ -5,7 +5,7 @@ from rest_framework import status
 from rest_framework import viewsets, permissions
 from django.db.models import Q
 
-from .models import Gym, Course,Card
+from .models import Gym, Course, Card
 from .serializers import GymSerializer, CourseSerializer,CourseReadSerializer
 from .serializers import *
 from coach.models import Coach
@@ -196,4 +196,13 @@ def gym_with_coaches(request):
         return Response(GymWithCoachesSerializer(person, many=True).data,
                     status=status.HTTP_200_OK)
 
+
+@api_view(["GET"])
+def gym_coaches(request, pk):
+    coaches = []
+    cards = Card.objects.filter(gym=pk)
+    for card in cards:
+        coaches.append(card.coach.json())
+    print(coaches)
+    return Response(coaches, status=status.HTTP_200_OK)
     
