@@ -31,6 +31,8 @@ class UserSerializer(serializers.ModelSerializer):
         
         if validated_data['role'] == '1':
             user.add_coach()
+        elif validated_data['role'] == '2':
+            user.add_customer()
         return user
 
 
