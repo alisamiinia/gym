@@ -6,9 +6,10 @@ class Coach(models.Model):
     # def __init__() -> None:
     #     super(User).__init__()
     description = models.CharField(max_length=100,blank = True, null = True)
+    phone = models.CharField(max_length=11,validators='accounts.User.valid_number')
     age = models.IntegerField(blank = True, null = True)
     weight = models.IntegerField(blank = True, null = True)
-    gender = models.IntegerField(blank = True, null = True)######
+    #gender = models.IntegerField(blank = True, null = True)
     picUrl = models.ImageField(blank = True, null = True)
     
 

@@ -8,7 +8,7 @@ class Customer(models.Model):
     description = models.CharField(max_length=100,blank = True, null = True)
     age = models.IntegerField(blank = True, null = True)
     #weight = models.IntegerField(blank = True, null = True)
-    picUrl = models.ImageField(blank = True, null = True)
+    
         
     created_at = models.DateTimeField(null=True, blank=True)
     updated_at = models.DateTimeField(null=True, blank=True)
