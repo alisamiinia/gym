@@ -200,9 +200,12 @@ def gym_with_coaches(request):
 @api_view(["GET"])
 def gym_coaches(request, pk):
     coaches = []
+    ids = []
     cards = Card.objects.filter(gym=pk)
     for card in cards:
-        coaches.append(card.coach.json())
+        if card.coach.id not in ids:
+            coaches.append(card.coach.json())
+            ids.append(card.coach.id)
     print(coaches)
     return Response(coaches, status=status.HTTP_200_OK)
     
