@@ -45,10 +45,3 @@ class User(AbstractUser):
     class Meta :
         ordering=['last_name']
         
-        
-# class Customer():
-#     pass
-# class Coach():
-#     pass
-# class Owner():
-#     pass
