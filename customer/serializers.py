@@ -1,13 +1,14 @@
 from rest_framework import serializers
 from .models import Customer
+from accounts.serializers import CustomerUserSerializer
 
 
 
 class CustomerSerializer(serializers.ModelSerializer):
-
+    user = CustomerUserSerializer()
     class Meta:
         model = Customer
-        fields = ['description', 'picUrl']
+        fields = ['user_id', 'description', 'picUrl', 'user']
         
 
 # class UserGymSerializer(serializers.ModelSerializer):

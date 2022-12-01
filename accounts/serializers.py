@@ -40,7 +40,12 @@ class CoachUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'picUrl']
-        
+
+
+class CustomerUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'picUrl']
         
 
 # # Register Serializer
