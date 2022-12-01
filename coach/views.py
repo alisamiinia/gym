@@ -17,7 +17,13 @@ def coach_view(request):
         person = Coach.objects.all()
         return Response(CoachSerializer(person,many=True).data,
                     status=status.HTTP_200_OK)
-        
+
+
+@api_view(['GET'])
+def coach_search(request):
+        person = Coach.objects.all()
+        return Response(CoachSerializer(person,many=True).data,
+                    status=status.HTTP_200_OK)
         
         
         
@@ -37,28 +43,59 @@ def coach_post(request):
     
     
 
-@api_view(['PUT', 'GET', 'DELETE'])
-def get_update_delete_coach(request, pk):
+# @api_view(['PUT', 'GET', 'DELETE'])
+# def get_update_delete_coach(request, pk):
+#     try:
+#         coach = Coach.objects.get(pk=pk)
+#     except:
+#         return Response({"error": "Not Found!"}, status=status.HTTP_404_NOT_FOUND)
+
+#     if request.method == 'GET':
+#         ser = CoachSerializer(coach)
+#         return Response(ser.data, status=status.HTTP_200_OK)
+
+#     elif request.method == 'PUT':
+#         ser = CoachSerializer(coach, data=request.data)
+#         if ser.is_valid():
+#             ser.save()
+#             return Response(ser.data, status=status.HTTP_200_OK)
+#         else:
+#             return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#     elif request.method == 'DELETE':
+#         coach.delete()
+#         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['GET'])
+def get_coach(request, pk):
+    try:
+        coach = Coach.objects.get(pk=pk)
+    except:
+        return Response({"error": "Not Found!"}, status=status.HTTP_404_NOT_FOUND)
+    ser = CoachSerializer(coach)
+    return Response(ser.data, status=status.HTTP_200_OK)
+
+@api_view(['DELETE'])
+def delete_coach(request, pk):
+    try:
+        coach = Coach.objects.get(pk=pk)
+    except:
+        return Response({"error": "Not Found!"}, status=status.HTTP_404_NOT_FOUND)
+    coach.delete()
+    return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['PUT'])
+def update_coach(request, pk):
     try:
         coach = Coach.objects.get(pk=pk)
     except:
         return Response({"error": "Not Found!"}, status=status.HTTP_404_NOT_FOUND)
 
-    if request.method == 'GET':
-        ser = CoachSerializer(coach)
+    ser = CoachSerializer(coach, data=request.data)
+    if ser.is_valid():
+        ser.save()
         return Response(ser.data, status=status.HTTP_200_OK)
-
-    elif request.method == 'PUT':
-        ser = CoachSerializer(coach, data=request.data)
-        if ser.is_valid():
-            ser.save()
-            return Response(ser.data, status=status.HTTP_200_OK)
-        else:
-            return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    elif request.method == 'DELETE':
-        coach.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-
+    else:
+        return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
 
