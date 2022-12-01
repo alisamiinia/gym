@@ -6,6 +6,7 @@ from rest_framework import viewsets, permissions
 
 from .models import Coach
 from .serializers import *
+from accounts.serializers import *
 #from .models import Gym, Course
 #from .serializers import GymSerializer, CourseSerializer,CourseReadSerializer
 

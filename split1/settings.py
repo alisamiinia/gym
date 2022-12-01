@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'gym',
 #    'pillow',
     'coach',
+    'customer',
 ]
 AUTH_USER_MODEL = "accounts.User"
 MIDDLEWARE = [
