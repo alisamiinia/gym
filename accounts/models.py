@@ -29,6 +29,8 @@ class User(AbstractUser):
     gender = models.CharField(max_length=1,choices=sexuality_choises,default="M", blank=True, null=True)
     picUrl = models.ImageField(blank=True, null=True)
     role = models.CharField(max_length=8,choices=ROLE_CHOICES,default="Customer")
+    first_name = models.CharField(max_length=100, blank= True, null=True)
+    last_name = models.CharField(max_length=100, blank= True, null=True)
     
     
     def add_coach(self):
@@ -42,7 +44,7 @@ class User(AbstractUser):
     
     
     def __str__(self) :
-        return self.first_name+" "+self.last_name
+        return self.username #self.first_name+" "+self.last_name
     class Meta :
         ordering=['last_name']
         
