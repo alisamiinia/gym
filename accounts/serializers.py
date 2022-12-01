@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from .models import User
 from djoser.serializers import UserSerializer as BaseUserSerializer
-#from coach.serializers import DetailSerializer, AchievementSerializer, CoachSerializer
 
 
 
@@ -38,14 +37,11 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class CoachUserSerializer(serializers.ModelSerializer):
-    #description = CoachSerializer()
-    # detail_set = DetailSerializer(many=True)
-    # achievement_set = AchievementSerializer(many=True)
-    #picUrl = serializers.
-    #fullName = user.__str__()
     class Meta:
         model = User
-        fields = ['first_name','last_name', 'email']
+        fields = ['first_name', 'last_name', 'picUrl']
+        
+        
 
 # # Register Serializer
 # class RegisterSerializer(serializers.ModelSerializer):

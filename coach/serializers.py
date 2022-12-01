@@ -13,20 +13,14 @@ class AchievementSerializer(serializers.ModelSerializer):
         model = Achievement
         fields = ['achievement', 'year']
 
-# class UserPicSerializer():
-    # user = UserSerializer()
-    # class Meta:
-    #     model=Coach
-    #     fields=['picUrl']
         
 class CoachSerializer(serializers.ModelSerializer):
     detail_set = DetailSerializer(many=True)
     achievement_set = AchievementSerializer(many=True)
     user = CoachUserSerializer()
-    #fullName = user.__str__()
     class Meta:
         model = Coach
-        fields = ['description', 'detail_set', 'achievement_set', 'user']#, 'detail_set', 'achievement_set']
+        fields = ['user_id', 'description', 'detail_set', 'achievement_set', 'user']
         
 
 # class UserGymSerializer(serializers.ModelSerializer):

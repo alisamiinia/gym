@@ -13,6 +13,3 @@ class Customer(models.Model):
     
     created_at = models.DateTimeField(null=True, blank=True)
     updated_at = models.DateTimeField(null=True, blank=True)
-    
-    # def picurl(self):
-    #     return self.user.picurl
