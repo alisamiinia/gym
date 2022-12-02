@@ -8,7 +8,7 @@ class CustomerSerializer(serializers.ModelSerializer):
     user = CustomerUserSerializer()
     class Meta:
         model = Customer
-        fields = ['user_id', 'description', 'picUrl', 'user']
+        fields = ['user_id', 'description', 'user']
         
 class CustomerUpdateProfileSerializer(serializers.ModelSerializer):
     class Meta:

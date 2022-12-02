@@ -16,7 +16,7 @@ def customer_view(request):
                     status=status.HTTP_200_OK)
         
 @api_view(['GET'])
-def coach_customer(request, fullName):
+def customer_search(request, fullName):
         person = "not found"
         customers = Customer.objects.all()
         for customer in customers:
