@@ -14,7 +14,11 @@ urlpatterns = [
     path('get-cards', views.get_cards),
     path('post-card', views.post_card),
     path('gym-with-coaches', views.gym_with_coaches),
-    path('get-card-coaches/<int:pk>', views.gym_coaches)
+    path('get-card-coaches/<int:pk>', views.gym_coaches),
+    #Ali################################################################
+    path('update-gym/<int:pk>/', views.update),
+    path('get-gym/<int:pk>/', views.get_gym),
+    ###############
 ]
 router = DefaultRouter()
 router.register('gym', views.GymViewSet)

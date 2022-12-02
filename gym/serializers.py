@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import Gym, Course,Card
 from coach.models import Coach
 from coach.serializers import *
+from accounts.serializers import GymUserSerializer
 
 
 
@@ -62,3 +63,17 @@ class CardReadSerializer(serializers.ModelSerializer):
         model = Card
         fields = '__all__'
         # depth = 1
+        
+        
+#Ali################################################################
+class UserGymSerializer(serializers.ModelSerializer):
+    user = GymUserSerializer()
+    class Meta:
+        model = Gym
+        fields = ['user_id', 'adress', 'phone', 'user']
+        
+class GymUpdateProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Gym
+        fields = ['description', 'phone', 'age',]
+################################################################

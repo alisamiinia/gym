@@ -9,6 +9,8 @@ from .models import Gym, Course, Card
 from .serializers import GymSerializer, CourseSerializer,CourseReadSerializer
 from .serializers import *
 from coach.models import Coach
+from django.shortcuts import get_object_or_404
+from accounts.models import User
 
 
 blacklist =["123456789","111111111","222222222","333333333","444444444"]
@@ -120,7 +122,35 @@ def get_gym_classes(request):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
 
+#Ali
+@api_view(['GET'])
+def get_gym(request, pk):
+    try:
+        gym = Gym.objects.get(pk=pk)
+    except:
+        return Response({"error": "Not Found!"}, status=status.HTTP_404_NOT_FOUND)
+    ser = UserGymSerializer(gym)
+    return Response(ser.data, status=status.HTTP_200_OK)
 
+
+@api_view(['PUT'])
+def update(request, pk):
+    instance = get_object_or_404(Gym, pk=pk)
+    user_ins = get_object_or_404(User, id = instance.user_id)
+    user_ser = GymUserSerializer(user_ins, data = request.data['user'])
+    user_ser.is_valid(raise_exception=True)
+    user_ser.save()
+
+    serializer = GymUpdateProfileSerializer(instance, data=request.data)  
+    serializer.is_valid(raise_exception=True)
+    serializer.save()
+
+    content = {
+        'gym' : serializer.data, 
+        'user': user_ser.data,
+        }
+    return Response(content)
+    
 
 
 

@@ -47,7 +47,11 @@ class CustomerUserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['username', 'personal_id', 'gender', 'picUrl', 'first_name', 'last_name',]
         
-
+class GymUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['username', 'personal_id', 'gender', 'picUrl', 'first_name', 'last_name',]
+        
 # # Register Serializer
 # class RegisterSerializer(serializers.ModelSerializer):
 #     class Meta:
