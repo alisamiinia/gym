@@ -33,6 +33,8 @@ class UserSerializer(serializers.ModelSerializer):
             user.add_coach()
         elif validated_data['role'] == '2':
             user.add_customer()
+        elif validated_data['role'] == '0':
+            user.add_gym()
         return user
 
 

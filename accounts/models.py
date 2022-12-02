@@ -4,6 +4,8 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from coach.models import Coach
 from customer.models import Customer
+from gym.models import Gym
+
 #from coach.serializers import CoachSerializer
 
 # Create your models here.
@@ -37,10 +39,13 @@ class User(AbstractUser):
         add_Coach_ins=Coach(user_id=self.pk)
         add_Coach_ins.save()
     
-    
     def add_customer(self):
-        add_Coach_ins=Customer(user_id=self.pk)
-        add_Coach_ins.save()
+        add_Customer_ins=Customer(user_id=self.pk)
+        add_Customer_ins.save()
+    
+    def add_gym(self):
+        add_Gym_ins=Gym(user_id=self.pk)
+        add_Gym_ins.save()
     
     
     def __str__(self) :
