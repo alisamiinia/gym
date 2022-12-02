@@ -8,6 +8,8 @@ pip install djangorestframework
 pip install django-rest-knox
 pip install django
 python -m pip install django-cors-headers
+pip install djoser
+python -m pip install pillow
 
 run server :
 python .\manage.py runserver
