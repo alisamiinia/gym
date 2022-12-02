@@ -10,7 +10,12 @@ class CustomerSerializer(serializers.ModelSerializer):
         model = Customer
         fields = ['user_id', 'description', 'picUrl', 'user']
         
-
+class CustomerUpdateProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Customer
+        fields = ['description', 'phone', 'age',]
+    
+    
 # class UserGymSerializer(serializers.ModelSerializer):
 #     class Meta:
 #         model = User
