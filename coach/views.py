@@ -25,10 +25,14 @@ def coach_view(request):
 
 
 @api_view(['GET'])
-def coach_search(request):
-        person = Coach.objects.all()
-        return Response(CoachSerializer(person,many=True).data,
-                    status=status.HTTP_200_OK)
+def coach_search(request, fullName):
+        person = "not found"
+        coachs = Coach.objects.all()
+        for coach in coachs:
+            user = User.objects.get(id=coach.user_id)
+            if user.first_name + " " + user.last_name == fullName:
+                person = coach
+        return Response(CoachSerializer(person).data , status=status.HTTP_200_OK)
         
            
 # @api_view(['POST'])
