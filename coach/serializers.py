@@ -27,7 +27,7 @@ class CoachUpdateProfileSerializer(serializers.ModelSerializer):
     #user = CoachUserSerializer()
     class Meta:
         model = Coach
-        fields = ['user_id', 'description']
+        fields = ['description', 'phone', 'age', 'height',]
         
 # class UserGymSerializer(serializers.ModelSerializer):
 #     class Meta:

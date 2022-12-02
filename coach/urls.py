@@ -5,7 +5,7 @@ from django.urls import path
 
 
 urlpatterns = [
-    path('get-all-coach/', views.coach_view),
+    path('get-all-coachs/', views.coach_view),
     path('search-coach/<int:pk>/', views.coach_search),
     path('get-coach/<int:pk>/', views.get_coach),
     #path('update-coach/<int:pk>/', views.CoachUpdateView.as_view({'put':'update_coach'})),

@@ -39,13 +39,13 @@ class UserSerializer(serializers.ModelSerializer):
 class CoachUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'picUrl']
+        fields = ['username', 'personal_id', 'gender', 'picUrl', 'first_name', 'last_name',]
 
 
 class CustomerUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'picUrl']
+        fields = ['username', 'personal_id', 'gender', 'picUrl', 'first_name', 'last_name',]
         
 
 # # Register Serializer
