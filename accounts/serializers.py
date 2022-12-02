@@ -4,7 +4,6 @@ from djoser.serializers import UserSerializer as BaseUserSerializer
 
 
 
-
 # class GetRoleSerializer(serializers.ModelSerializer):
 #     class Meta:
 #         model=User
@@ -17,23 +16,37 @@ class UserSerializer(serializers.ModelSerializer):
     role=serializers.CharField()
     class Meta:
         model=User
-        fields=['id','first_name','last_name','username','email','role','password',]
+        fields=['username','email','role','password',]
     
     def create(self, validated_data):
         user = User(
-           
-            
-            first_name=validated_data['first_name'],
-            last_name=validated_data['last_name'],
+            #first_name=validated_data['first_name'],
+            #last_name=validated_data['last_name'],
             username=validated_data['username'],
             email=validated_data['email'],
             role=validated_data['role'],
         )
         user.set_password(validated_data['password'])
         user.save()
+        
+        if validated_data['role'] == '1':
+            user.add_coach()
+        elif validated_data['role'] == '2':
+            user.add_customer()
         return user
 
 
+class CoachUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['username', 'personal_id', 'gender', 'picUrl', 'first_name', 'last_name',]
+
+
+class CustomerUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['username', 'personal_id', 'gender', 'picUrl', 'first_name', 'last_name',]
+        
 
 # # Register Serializer
 # class RegisterSerializer(serializers.ModelSerializer):

@@ -1,8 +1,8 @@
 from django.conf import UserSettingsHolder
 from requests import request
-from rest_framework import generics
-from .models import  User
-from .serializers import  UserSerializer
+from rest_framework import generics, permissions
+from .models import User
+from .serializers import UserSerializer
 
 
 
@@ -14,6 +14,7 @@ from .serializers import  UserSerializer
 class CreateUserView(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permissions.IsAuthenticatedOrReadOnly
 
 
 
