@@ -2,10 +2,14 @@ from django.conf import UserSettingsHolder
 from requests import request
 from rest_framework import generics, permissions
 from .models import User
-from .serializers import UserSerializer
+from .serializers import UserSerializer, UserGetSerializer
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+from django.shortcuts import get_object_or_404
 
 
-
+#from restframework_simplejwt.tokens import AccessToken
 
 
 
@@ -18,6 +22,21 @@ class CreateUserView(generics.ListCreateAPIView):
 
 
 
+
+@api_view(['GET'])
+def get_user(request):
+    try:
+        #user = Customer.objects.get(pk=pk)
+        userid = request.data['id']
+        user = get_object_or_404(User, id = userid)
+        user_ser = UserGetSerializer(user)
+        user_ser.is_valid(raise_exception=True)
+        #access_token = AccessToken(request)
+        #user = User.objects.get(access_token['user_id'])
+    except:
+        return Response({"error": "Not Found!"}, status=status.HTTP_404_NOT_FOUND)
+    #ser = UserGetSerializer(data = user)
+    return Response(user_ser.data, status=status.HTTP_200_OK)
 
 
 

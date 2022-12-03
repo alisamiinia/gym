@@ -8,7 +8,8 @@ class Gym(models.Model):
     gym_reg_code = models.IntegerField(default=999)
     user=models.OneToOneField('accounts.User',on_delete=models.CASCADE)
     
-
+class Owner(models.Model):
+    pass
 
 class Course(models.Model):
     name = models.CharField(max_length=30)

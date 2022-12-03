@@ -4,7 +4,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from coach.models import Coach
 from customer.models import Customer
-from gym.models import Gym
+from gym.models import Owner
 
 #from coach.serializers import CoachSerializer
 
@@ -43,8 +43,8 @@ class User(AbstractUser):
         add_Customer_ins=Customer(user_id=self.pk)
         add_Customer_ins.save()
     
-    def add_gym(self):
-        add_Gym_ins=Gym(user_id=self.pk)
+    def add_owner(self):
+        add_Gym_ins=Owner(user_id=self.pk)
         add_Gym_ins.save()
     
     
