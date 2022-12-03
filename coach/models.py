@@ -19,8 +19,8 @@ class Coach(models.Model):
     
     def json(self):
         return {
-            "id" : self.id,
-            "name":self.fullName,
+            "user_id" : self.user.id,
+            "name":self.user.first_name,
             "description":self.description
         }
     
