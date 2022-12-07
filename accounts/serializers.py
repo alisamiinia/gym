@@ -14,9 +14,11 @@ from djoser.serializers import UserSerializer as BaseUserSerializer
 
 class UserSerializer(serializers.ModelSerializer):
     role=serializers.CharField()
+    #personal_id = serializers.CharField()
+    #phone = serializers.CharField()
     class Meta:
         model=User
-        fields=['username','email','role','password',]
+        fields=['username','email','role','password','personal_id',]
     
     def create(self, validated_data):
         user = User(
@@ -34,7 +36,12 @@ class UserSerializer(serializers.ModelSerializer):
         elif validated_data['role'] == '2':
             user.add_customer()
         elif validated_data['role'] == '0':
+            user.personal_id = validated_data['personal_id']
             user.add_owner()
+            
+        else : 
+            pass
+            #role not found
         return user
 
 

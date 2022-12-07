@@ -35,8 +35,8 @@ class User(AbstractUser):
     last_name = models.CharField(max_length=100, blank= True, null=True)
     
     
-    def add_coach(self):
-        add_Coach_ins=Coach(user_id=self.pk)
+    def add_coach(self, phoneNum):
+        add_Coach_ins=Coach(user_id=self.pk, phone=phoneNum)
         add_Coach_ins.save()
     
     def add_customer(self):
@@ -44,8 +44,9 @@ class User(AbstractUser):
         add_Customer_ins.save()
     
     def add_owner(self):
-        add_Gym_ins=Owner(user_id=self.pk)
-        add_Gym_ins.save()
+        add_Owner_ins=Owner(user_id=self.pk)
+        add_Owner_ins.save()
+        #return add_Owner_ins
     
     
     def __str__(self) :
