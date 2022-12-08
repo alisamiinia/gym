@@ -7,7 +7,7 @@ class Coach(models.Model):
     # def __init__() -> None:
     #     super(User).__init__()
     description = models.CharField(max_length=100,blank = True, null = True)
-    valid_number = [RegexValidator(regex='09(0[1-2])|(1[0-9])|(3[0-9])|(2[0-1])-?[0-9]{3}-?[0-9]{4}')]
+    valid_number = [RegexValidator(regex='09(0[1-2])|(1[0-9])|(3[0-9])|(2[0-1])-?[0-9]{3}-?[0-9]{4}', message="wrong format enter")]
     phone = models.CharField(max_length=11,validators=valid_number, blank=True, null = True)
     age = models.IntegerField(blank = True, null = True)
     height = models.IntegerField(blank = True, null = True)

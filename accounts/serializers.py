@@ -2,6 +2,8 @@ from rest_framework import serializers
 from .models import User
 from djoser.serializers import UserSerializer as BaseUserSerializer
 
+from rest_framework.response import Response
+from rest_framework import status
 
 
 # class GetRoleSerializer(serializers.ModelSerializer):
@@ -14,11 +16,10 @@ from djoser.serializers import UserSerializer as BaseUserSerializer
 
 class UserSerializer(serializers.ModelSerializer):
     role=serializers.CharField()
-    #personal_id = serializers.CharField()
-    #phone = serializers.CharField()
+    phoneNumber = serializers.CharField(allow_null = True)################################
     class Meta:
         model=User
-        fields=['username','email','role','password','personal_id',]
+        fields=['username','email','role','password','personal_id','phoneNumber']
     
     def create(self, validated_data):
         user = User(
@@ -32,7 +33,18 @@ class UserSerializer(serializers.ModelSerializer):
         user.save()
         
         if validated_data['role'] == '1':
-            user.add_coach()
+            tmp = user.add_coach(validated_data['phoneNumber'])
+            if not tmp:
+                user.delete()#delete the user
+                #serializers.raise_errors_on_nested_writes('create', self, validated_data['phoneNum'])
+                raise serializers.ValidationError({"validation error" :{"phoneNumber" : validated_data['phoneNumber']}})
+                #return Response({"error": "Not match!"}, status=status.HTTP_404_NOT_FOUND)
+            # try:
+            #     user.add_coach(validated_data['phoneNum'])
+            # except:
+            #     user.delete()#delete the user
+            #     return Response({"error": "Not match!"}, status=status.HTTP_404_NOT_FOUND)
+
         elif validated_data['role'] == '2':
             user.add_customer()
         elif validated_data['role'] == '0':
@@ -42,6 +54,7 @@ class UserSerializer(serializers.ModelSerializer):
         else : 
             pass
             #role not found
+            
         return user
 
 

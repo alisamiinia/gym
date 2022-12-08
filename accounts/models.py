@@ -6,6 +6,8 @@ from coach.models import Coach
 from customer.models import Customer
 from gym.models import Owner
 
+import re
+
 #from coach.serializers import CoachSerializer
 
 # Create your models here.
@@ -33,11 +35,19 @@ class User(AbstractUser):
     role = models.CharField(max_length=8,choices=ROLE_CHOICES,default="Customer")
     first_name = models.CharField(max_length=100, blank= True, null=True)
     last_name = models.CharField(max_length=100, blank= True, null=True)
-    
+    #phoneNum = ""
     
     def add_coach(self, phoneNum):
         add_Coach_ins=Coach(user_id=self.pk, phone=phoneNum)
-        add_Coach_ins.save()
+        regex='09(0[1-2])|(1[0-9])|(3[0-9])|(2[0-1])-?[0-9]{3}-?[0-9]{4}'
+        if not phoneNum:
+            return False
+        elif not re.match(regex ,phoneNum):
+            return False
+        else : 
+            add_Coach_ins.save()
+            return True
+            # raise Exception('spam', 'eggs')
     
     def add_customer(self):
         add_Customer_ins=Customer(user_id=self.pk)
