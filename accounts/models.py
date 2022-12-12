@@ -6,6 +6,7 @@ from coach.models import Coach
 from customer.models import Customer
 from gym.models import Owner
 
+import re
 #from coach.serializers import CoachSerializer
 
 # Create your models here.
@@ -35,19 +36,33 @@ class User(AbstractUser):
     last_name = models.CharField(max_length=100, blank= True, null=True)
     
     
-    def add_coach(self):
-        add_Coach_ins=Coach(user_id=self.pk)
-        add_Coach_ins.save()
+    def add_coach(self, phoneNum):
+        add_Coach_ins=Coach(user_id=self.pk, phone=phoneNum)
+        regex='09(0[1-2])|(1[0-9])|(3[0-9])|(2[0-1])-?[0-9]{3}-?[0-9]{4}'
+        if not phoneNum:
+            return False
+        elif not re.match(regex ,phoneNum):
+            return False
+        else : 
+            add_Coach_ins.save()
+            return True
     
     def add_customer(self):
         add_Customer_ins=Customer(user_id=self.pk)
         add_Customer_ins.save()
     
-    def add_owner(self):
-        add_Owner_ins=Owner(user_id=self.pk)
-        add_Owner_ins.save()
-    
-    
+    def add_owner(self, phoneNum):
+        add_Owner_ins=Owner(user_id=self.pk, phone=phoneNum)
+        regex='09(0[1-2])|(1[0-9])|(3[0-9])|(2[0-1])-?[0-9]{3}-?[0-9]{4}'
+        if not phoneNum:
+            return False
+        elif not re.match(regex ,phoneNum):
+            return False
+        else : 
+            add_Owner_ins.save()
+            return True
+        
+        
     def __str__(self) :
         return self.username #self.first_name+" "+self.last_name
     class Meta :
