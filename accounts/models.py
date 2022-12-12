@@ -44,8 +44,8 @@ class User(AbstractUser):
         add_Customer_ins.save()
     
     def add_owner(self):
-        add_Gym_ins=Owner(user_id=self.pk)
-        add_Gym_ins.save()
+        add_Owner_ins=Owner(user_id=self.pk)
+        add_Owner_ins.save()
     
     
     def __str__(self) :
