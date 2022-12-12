@@ -1,5 +1,6 @@
 from django.db import models
 from coach.models import Coach
+from customer.models import *
 
 class Gym(models.Model):
     name = models.CharField(max_length=30)
@@ -7,6 +8,12 @@ class Gym(models.Model):
     phone = models.IntegerField()
     gym_reg_code = models.IntegerField(default=999)
     user=models.OneToOneField('accounts.User',on_delete=models.CASCADE)
+    
+
+
+
+
+
     
 class Owner(models.Model):
     pass
@@ -31,3 +38,9 @@ class Card(models.Model):
     describtion = models.CharField(max_length=200)
     accepted = models.BooleanField(default=False)
 
+
+class CustomerCard(models.Model):
+    custoer=models.ForeignKey(Coach,on_delete=models.SET_NULL,null=True)
+    gym=models.ForeignKey(Gym,on_delete=models.CASCADE)
+    #user=models.ForeignKey(User,on_delete=models.CASCADE)
+    

@@ -5,10 +5,11 @@ from rest_framework import status
 from rest_framework import viewsets, permissions
 from django.db.models import Q
 
-from .models import Gym, Course, Card
+from .models import Gym, Course, Card, CustomerCard
 from .serializers import GymSerializer, CourseSerializer,CourseReadSerializer
 from .serializers import *
 from coach.models import Coach
+from customer.models import *
 from django.shortcuts import get_object_or_404
 from accounts.models import User
 
@@ -276,3 +277,19 @@ class CourseViewSet(viewsets.ModelViewSet):
         obj = super().destroy(request, *args, **kwargs)
         return obj
     
+    
+    
+
+
+
+@api_view(["GET"])
+def gym_customers(request, pk):
+    customers = []
+    ids = []
+    cards = CustomerCard.objects.filter(gym=pk)
+    for card in cards:
+        if card.coach.user_id not in ids:
+            customers.append(card.coach.json())
+            ids.append(card.coach.user_id)
+    print(customers)
+    return Response(customers, status=status.HTTP_200_OK)

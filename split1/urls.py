@@ -25,6 +25,7 @@ urlpatterns = [
     path('gym/',include('gym.urls')),
     path('api/coach/',include('coach.urls')),
     path('api/customer/',include('customer.urls')),
+    path('article/',include('articles.urls')),
     path('api/auth/', include('djoser.urls')),
     path('api/auth/', include('djoser.urls.jwt')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
