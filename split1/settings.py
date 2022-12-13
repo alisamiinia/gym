@@ -29,7 +29,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+# APPEND_SLASH=False
 # Application definition
 
 INSTALLED_APPS = [
@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework.authtoken',
     'rest_framework',
+    'drf_yasg',
+    'rest_framework_swagger',
     'djoser',
     'knox',
     'accounts',

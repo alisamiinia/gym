@@ -10,6 +10,7 @@ urlpatterns = [
     # path('api/login/', LoginAPI.as_view(), name='login'),
     # path('api/logout/', knox_views.LogoutView.as_view(), name='logout'),
     path('api/user/signup/',views.CreateUserView.as_view()),
+    path('auth/login/',views.MyTokenObtainPairView.as_view()),
     path('api/get-user/', views.get_user),
 ]
 #http://localhost:8000/api/register/
