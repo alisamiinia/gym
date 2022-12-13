@@ -181,7 +181,15 @@ def readcardsview(request):
                     status=status.HTTP_200_OK)
 
 
-
+@api_view(['Get'])
+def gym_of_owner(request, ownerId):
+    if request.method == "GET":
+        # try:
+        gym = Gym.objects.get(user_id=ownerId)
+        # except:
+        #     gym = {}
+        return Response(GymWithCoachesSerializer(gym).data,
+                    status=status.HTTP_200_OK)
 
 class GymViewSet(viewsets.ModelViewSet):
     queryset = Gym.objects.all()
@@ -218,7 +226,9 @@ class GymViewSet(viewsets.ModelViewSet):
         print("---- Destroy : {}".format(instance.name))
         obj = super().destroy(request, *args, **kwargs)
         return obj
-    
+
+
+
 @api_view(['GET'])
 def gym_with_coaches(request):
     if request.method == "GET":
@@ -238,7 +248,7 @@ def gym_coaches(request, pk):
             ids.append(card.coach.user_id)
     print(coaches)
     return Response(coaches, status=status.HTTP_200_OK)
-    
+
 
 class CourseViewSet(viewsets.ModelViewSet):
     queryset = Course.objects.all()

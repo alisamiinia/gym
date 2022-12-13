@@ -41,8 +41,8 @@ class User(AbstractUser):
         regex='09(0[1-2])|(1[0-9])|(3[0-9])|(2[0-1])-?[0-9]{3}-?[0-9]{4}'
         if not phoneNum:
             return False
-        elif not re.match(regex ,phoneNum):
-            return False
+        # elif not re.match(regex ,phoneNum):
+        #     return False
         else : 
             add_Coach_ins.save()
             return True

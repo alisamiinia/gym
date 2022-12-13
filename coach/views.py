@@ -10,6 +10,7 @@ from accounts.models import User
 from .serializers import *
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import action
+from gym.models import Card
 
 #from accounts.serializers import *
 #from .models import Gym, Course
@@ -164,3 +165,9 @@ def update(request, pk):
 #         coach.delete()
 #         return Response(status=status.HTTP_204_NO_CONTENT)
 #             return Response(serializer.data)
+
+
+@api_view(['GET'])
+def get_coaches_of_gym(request, gymId):
+    coaches = Card.objects.select_related('coach').filter(gym_id=gymId)
+    return Response(CoachCardSerializer(coaches,many=True).data,status=status.HTTP_200_OK)

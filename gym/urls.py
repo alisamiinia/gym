@@ -18,6 +18,7 @@ urlpatterns = [
     #Ali################################################################
     path('update-gym/<int:pk>/', views.update),
     path('get-gym/<int:pk>/', views.get_gym),
+    path('owner/<int:ownerId>', views.gym_of_owner)
     ###############
 ]
 router = DefaultRouter()
