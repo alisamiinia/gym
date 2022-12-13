@@ -15,7 +15,7 @@ from rest_framework import status
 
 class UserSerializer(serializers.ModelSerializer):
     role=serializers.CharField()
-    phoneNumber = serializers.CharField(allow_null = True)################################
+    phoneNumber = serializers.CharField(allow_null=True,required=False)################################
     
     class Meta:
         model=User
