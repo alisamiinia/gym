@@ -7,12 +7,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import get_object_or_404
-
-
-#from restframework_simplejwt.tokens import AccessToken
-
-
-
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 
 class CreateUserView(generics.ListCreateAPIView):
@@ -20,6 +16,19 @@ class CreateUserView(generics.ListCreateAPIView):
     serializer_class = UserSerializer
     permissions.IsAuthenticatedOrReadOnly
 
+
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    def validate(self, attrs):
+        data = super().validate(attrs)
+        token = super().get_token(self.user)
+        access_token = token.access_token
+        access_token['role'] = User.objects.get(id=self.user.pk).role
+        data['access'] = str(access_token)
+        return data
+
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
 
 
 

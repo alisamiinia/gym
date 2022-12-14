@@ -2,7 +2,8 @@ from rest_framework import serializers
 from .models import User
 from djoser.serializers import UserSerializer as BaseUserSerializer
 
-
+from rest_framework.response import Response
+from rest_framework import status
 
 # class GetRoleSerializer(serializers.ModelSerializer):
 #     class Meta:
@@ -14,9 +15,12 @@ from djoser.serializers import UserSerializer as BaseUserSerializer
 
 class UserSerializer(serializers.ModelSerializer):
     role=serializers.CharField()
+    phoneNumber = serializers.CharField(allow_null=True,required=False)################################
+    
     class Meta:
         model=User
-        fields=['id','username','email','role','password',]
+        ref_name="user-serializer"
+        fields=['username','email','role','password','personal_id','phoneNumber']
     
     def create(self, validated_data):
         user = User(
@@ -25,16 +29,30 @@ class UserSerializer(serializers.ModelSerializer):
             username=validated_data['username'],
             email=validated_data['email'],
             role=validated_data['role'],
+            personal_id=validated_data['personal_id']
         )
         user.set_password(validated_data['password'])
         user.save()
         
         if validated_data['role'] == '1':
-            user.add_coach()
+            tmp = user.add_coach(validated_data['phoneNumber'])
+            if not tmp:
+                user.delete()#delete the user
+                #serializers.raise_errors_on_nested_writes('create', self, validated_data['phoneNum'])
+                raise serializers.ValidationError({"validation error" :{"phoneNumber" : validated_data['phoneNumber']}})
+        
         elif validated_data['role'] == '2':
             user.add_customer()
+        
         elif validated_data['role'] == '0':
-            user.add_gym()
+            if validated_data['personal_id'] == None:
+                user.delete()
+                raise serializers.ValidationError({"personal ID is required" :{"personal_id" : validated_data['personal_id']}})
+            tmp = user.add_owner(validated_data['phoneNumber'])
+            if not tmp:
+                user.delete()#delete the user
+                #serializers.raise_errors_on_nested_writes('create', self, validated_data['phoneNum'])
+                raise serializers.ValidationError({"validation error" :{"phoneNumber" : validated_data['phoneNumber']}})
         return user
 
 
