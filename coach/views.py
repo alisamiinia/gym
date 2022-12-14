@@ -30,7 +30,9 @@ def coach_search(request, str):
         coachs = Coach.objects.all()
         for coach in coachs:
             user = User.objects.get(id=coach.user_id)
-            fullName = (user.first_name + " " + user.last_name).lower()
+            fullName = " "
+            if user.first_name != None and user.last_name != None:
+                fullName = (user.first_name + " " + user.last_name).lower()
             if str in fullName:
                 persons.append(coach)
                 

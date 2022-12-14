@@ -37,28 +37,28 @@ class User(AbstractUser):
     
     
     def add_coach(self, phoneNum):
-        add_Coach_ins=Coach(user_id=self.pk, phone=phoneNum)
         #regex='09(0[1-2])|(1[0-9])|(3[0-9])|(2[0-1])-?[0-9]{3}-?[0-9]{4}'
-        # if phoneNum is None:
-        #     return False
-        #if not re.match(regex ,phoneNum):
+        if phoneNum is None:
+            return False
+        # if not re.match(regex ,phoneNum):
         #    return False
-        #else : 
-        add_Coach_ins.save()
-        #    return True
+        else: 
+            add_Coach_ins=Coach(user_id=self.pk, phone=phoneNum)
+            add_Coach_ins.save()
+            return True
     
     def add_customer(self):
         add_Customer_ins=Customer(user_id=self.pk)
         add_Customer_ins.save()
     
     def add_owner(self, phoneNum):
-        add_Owner_ins=Owner(user_id=self.pk, phone=phoneNum)
-        regex='09(0[1-2])|(1[0-9])|(3[0-9])|(2[0-1])-?[0-9]{3}-?[0-9]{4}'
-        if not phoneNum:
+        if phoneNum == None:
             return False
+        #regex='09(0[1-2])|(1[0-9])|(3[0-9])|(2[0-1])-?[0-9]{3}-?[0-9]{4}'
         # elif not re.match(regex ,phoneNum):
         #     return False
-        else : 
+        else: 
+            add_Owner_ins=Owner(user_id=self.pk, phone=phoneNum)
             add_Owner_ins.save()
             return True
         
