@@ -1,5 +1,6 @@
 from django.db import models
 from coach.models import Coach
+from customer.models import *
 from django.core.validators import RegexValidator
 
 class Gym(models.Model):
@@ -8,6 +9,12 @@ class Gym(models.Model):
     phone = models.IntegerField()
     gym_reg_code = models.IntegerField(default=999)
     user=models.OneToOneField('accounts.User',on_delete=models.CASCADE)
+    
+
+
+
+
+
     
 class Owner(models.Model):
     user = models.OneToOneField('accounts.User', on_delete=models.CASCADE) # recursive error fixed
@@ -36,3 +43,9 @@ class Card(models.Model):
     describtion = models.CharField(max_length=200)
     accepted = models.BooleanField(default=False)
 
+
+class CustomerCard(models.Model):
+    customer=models.ForeignKey(Customer,on_delete=models.CASCADE,null=True)
+    gym=models.ForeignKey(Gym,on_delete=models.CASCADE)
+    #user=models.ForeignKey(User,on_delete=models.CASCADE)
+    

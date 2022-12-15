@@ -26,14 +26,21 @@ def coach_view(request):
 
 
 @api_view(['GET'])
-def coach_search(request, fullName):
-        person = "not found"
+def coach_search(request, str):
+        persons = []
         coachs = Coach.objects.all()
         for coach in coachs:
             user = User.objects.get(id=coach.user_id)
-            if user.first_name + " " + user.last_name == fullName:
-                person = coach
-        return Response(CoachSerializer(person).data , status=status.HTTP_200_OK)
+            fullName = " "
+            if user.first_name != None and user.last_name != None:
+                fullName = (user.first_name + " " + user.last_name).lower()
+            if str in fullName:
+                persons.append(coach)
+                
+        #tmp = coachs.filter(user__contains='fullName')
+        
+        
+        return Response(CoachSerializer(persons, many=True).data , status=status.HTTP_200_OK)
         
            
 # @api_view(['POST'])

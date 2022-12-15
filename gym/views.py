@@ -4,11 +4,14 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 from rest_framework import viewsets, permissions
 from django.db.models import Q
+from rest_framework import filters
+from rest_framework import generics
 
-from .models import Gym, Course, Card
+from .models import Gym, Course, Card, CustomerCard
 from .serializers import GymSerializer, CourseSerializer,CourseReadSerializer
 from .serializers import *
 from coach.models import Coach
+from customer.models import *
 from django.shortcuts import get_object_or_404
 from accounts.models import User
 
@@ -88,14 +91,11 @@ def get_update_delete_gym(request, pk):
 
 
 #search gym by name
-@api_view(['GET'])
-def search_gym_name(request):
-    gyms = Gym.objects.filter(name=request.query_params['name'])
-    if gyms:
-        ser = GymSerializer(gyms, many=True)
-        return Response(ser.data, status=status.HTTP_200_OK)
-    else:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+class UserListView(generics.ListAPIView):
+    queryset = Gym.objects.all()
+    serializer_class = GymSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['name', 'adress']
 #search gym by adress
 @api_view(['GET'])
 def search_gym_adress(request):
@@ -195,8 +195,8 @@ class GymViewSet(viewsets.ModelViewSet):
     queryset = Gym.objects.all()
     serializer_class = GymSerializer
     http_method_names = ['get', 'post', 'put', 'delete']
-
-    search_fields = ('name', )
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['name', 'adress']
     ordering_fields = '__all__'
 
     def list(self, request, *args, **kwargs):
@@ -294,3 +294,43 @@ class CourseViewSet(viewsets.ModelViewSet):
         obj = super().destroy(request, *args, **kwargs)
         return obj
     
+    
+    
+
+
+
+@api_view(["GET"])
+def gym_customers(request, pk):
+    customers = []
+    ids = []
+    cards = CustomerCard.objects.filter(gym=pk)
+    for card in cards:
+        if card.customer.user_id not in ids:
+            customers.append(card.customer.json())
+            ids.append(card.customer.user_id)
+    print(customers)
+    return Response(customers, status=status.HTTP_200_OK)
+
+
+
+
+
+
+
+#yasin
+@api_view(['GET'])
+def get_customer_card(request):
+    if request.method == "GET":
+        customers = CustomerCard.objects.all()
+        return Response(CustomerCardSerializer(customers, many=True).data,
+                      status=status.HTTP_200_OK)
+        
+@api_view(['POST'])
+def post_customer_card(request):        
+    if request.method == "POST":
+        ser = CustomerCardSerializer(data=request.data)
+        if ser.is_valid():
+            ser.save()
+            return Response(ser.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
