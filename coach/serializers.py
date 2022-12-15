@@ -3,7 +3,6 @@ from .models import Coach, Detail, Achievement
 from accounts.serializers import CoachUserSerializer
 from accounts.serializers import UserSerializer
 
-
 class DetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Detail
@@ -31,12 +30,6 @@ class CoachUpdateProfileSerializer(serializers.ModelSerializer):
         fields = ['description', 'phone', 'age', 'height',]
 
 
-class CoachCardSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
-    class Meta:
-        model = Coach 
-        fields = '__all__'
-        # fields = ['user','description','phone']
         
 # class UserGymSerializer(serializers.ModelSerializer):
 #     class Meta:

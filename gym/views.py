@@ -184,12 +184,12 @@ def readcardsview(request):
 @api_view(['Get'])
 def gym_of_owner(request, ownerId):
     if request.method == "GET":
-        # try:
-        gym = Gym.objects.get(user_id=ownerId)
-        # except:
-        #     gym = {}
-        return Response(GymWithCoachesSerializer(gym).data,
-                    status=status.HTTP_200_OK)
+        try:
+            gym = Gym.objects.get(user_id=ownerId)
+            return Response(GymWithCoachesSerializer(gym).data,
+                status=status.HTTP_200_OK)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
 class GymViewSet(viewsets.ModelViewSet):
     queryset = Gym.objects.all()
@@ -248,6 +248,14 @@ def gym_coaches(request, pk):
             ids.append(card.coach.user_id)
     print(coaches)
     return Response(coaches, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def get_coaches_of_gym(request, gymId):
+    cards = Card.objects.filter(gym=gymId)
+    coaches = []
+    for card in cards:
+        coaches.append(card.coach)
+    return Response(CoachCardSerializer(coaches,many=True).data,status=status.HTTP_200_OK)
 
 
 class CourseViewSet(viewsets.ModelViewSet):

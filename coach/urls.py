@@ -9,6 +9,5 @@ urlpatterns = [
     path('search-coach/<str:fullName>/', views.coach_search),
     path('get-coach/<int:pk>/', views.get_coach),
     path('update-coach/<int:pk>/', views.update),
-    path('delete-coach/<int:pk>/', views.delete_coach),
-    path('gym/<int:gymId>/', views.get_coaches_of_gym)
+    path('delete-coach/<int:pk>/', views.delete_coach)
 ]
