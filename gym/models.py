@@ -45,7 +45,7 @@ class Card(models.Model):
 
 
 class CustomerCard(models.Model):
-    custoer=models.ForeignKey(Coach,on_delete=models.SET_NULL,null=True)
+    customer=models.ForeignKey(Customer,on_delete=models.CASCADE,null=True)
     gym=models.ForeignKey(Gym,on_delete=models.CASCADE)
     #user=models.ForeignKey(User,on_delete=models.CASCADE)
     

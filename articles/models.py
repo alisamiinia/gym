@@ -21,5 +21,8 @@ class article(models.Model):
     description = models.CharField(max_length=250,null=True)
     writerName= models.CharField(max_length=250)
     articleCategory = models.ForeignKey(category,max_length=250,null=True,on_delete=models.CASCADE)
+    
+    created_at = models.DateTimeField(null=True, blank=True)
+    updated_at = models.DateTimeField(null=True, blank=True)
 
 

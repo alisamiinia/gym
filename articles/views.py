@@ -85,14 +85,21 @@ class categoryviewset(viewsets.ModelViewSet):
 @api_view(['GET'])
 def  articlecatview(request):
     #cat = category.objects.filter(name=request.query_params['name'])
-    cat=category.objects.get(name=request.query_params['category'])
+    ids=[]
+    ids = request.query_params['ids'].split(',')
+    print(ids)
+    ####cat=category.objects.get(name=request.query_params['ids'])
     # for i in cat :
     #     print(i,"jfuytfufu")
     #     id=i.id
-    id= cat.id
-    articles = article.objects.filter(articleCategory=id)
-    if articles:
-        ser = articleSerializer(articles, many=True)
+    ###id= cat.id
+    b=[]
+    for i in ids:
+        a=article.objects.filter(articleCategory=i)
+        b=b+list(a)
+    ##articles = article.objects.filter(articleCategory=id)
+    if b:
+        ser = articleSerializer(b, many=True)
         return Response(ser.data, status=status.HTTP_200_OK)
     else:
         return Response(status=status.HTTP_404_NOT_FOUND)
