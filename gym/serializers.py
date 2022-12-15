@@ -63,6 +63,13 @@ class CardReadSerializer(serializers.ModelSerializer):
         model = Card
         fields = '__all__'
         # depth = 1
+
+class CoachCardSerializer(serializers.ModelSerializer):
+    user = CoachUserSerializer()
+    # card = CardSerializer()
+    class Meta:
+        model = Coach 
+        fields=['user','description','age','height','phone']
         
         
 #Ali################################################################

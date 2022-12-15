@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import Coach, Detail, Achievement
 from accounts.serializers import CoachUserSerializer
-
+from accounts.serializers import UserSerializer
 
 class DetailSerializer(serializers.ModelSerializer):
     class Meta:
@@ -28,6 +28,8 @@ class CoachUpdateProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Coach
         fields = ['description', 'phone', 'age', 'height',]
+
+
         
 # class UserGymSerializer(serializers.ModelSerializer):
 #     class Meta:

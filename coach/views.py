@@ -10,6 +10,7 @@ from accounts.models import User
 from .serializers import *
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import action
+from gym.models import Card,Gym
 
 #from accounts.serializers import *
 #from .models import Gym, Course

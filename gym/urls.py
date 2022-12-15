@@ -15,9 +15,11 @@ urlpatterns = [
     path('post-card', views.post_card),
     path('gym-with-coaches', views.gym_with_coaches),
     path('get-card-coaches/<int:pk>', views.gym_coaches),
+    path('coaches/<int:gymId>/', views.get_coaches_of_gym),
     #Ali################################################################
     path('update-gym/<int:pk>/', views.update),
     path('get-gym/<int:pk>/', views.get_gym),
+    path('owner/<int:ownerId>', views.gym_of_owner),
     path('gym_customers/<int:pk>', views.gym_customers),
     path('get-customer_card', views.get_customer_card),
     path('post-customer_card', views.post_customer_card),
