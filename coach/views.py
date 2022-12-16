@@ -11,6 +11,7 @@ from .serializers import *
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import action
 
+from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 #from accounts.serializers import *
 #from .models import Gym, Course
 #from .serializers import GymSerializer, CourseSerializer,CourseReadSerializer
@@ -132,7 +133,31 @@ def update(request, pk):
     # return Response(serializer.data + user_ser.data)
     
     
+################################################################for update profile image
+# class CoachViewSet(viewsets.ModelViewSet):
+#     queryset = Coach.objects.order_by('user_id')
+#     serializer_class = CoachSerializer
+#     parser_classes = (JSONParser, MultiPartParser, FormParser)
+#     # permission_classes = [
+#     #     permissions.IsAuthenticatedOrReadOnly]
+
+#     def perform_create(self, serializer):
+#         serializer.save(creator=self.request.user)
     
+#     @action(detail=True, methods=['put'])
+#     def profile_img(self, request, pk=None):
+#         #coach = self.get_object()
+#         coach = get_object_or_404(Coach, pk=pk)
+#         user = coach.user
+#         serializer = CoachUserSerializer(user, data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=200)
+#         else: 
+#             return Response(serializer.errors, status=400)
+        
+        
+        
 # @api_view(['PUT'])
 # def update_coach(request, pk):
 #     try:

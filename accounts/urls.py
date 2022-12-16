@@ -12,6 +12,7 @@ urlpatterns = [
     path('api/user/signup/',views.CreateUserView.as_view()),
     path('auth/login/',views.MyTokenObtainPairView.as_view()),
     path('api/get-user/', views.get_user),
+    path('api/update-user-profile-img/<int:id>/',views.UserViewSet.as_view({'put':'profile_img'})),
 ]
 #http://localhost:8000/api/register/
 #http://localhost:8000/api/login/
