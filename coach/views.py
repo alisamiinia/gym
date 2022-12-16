@@ -96,7 +96,30 @@ def update(request, pk):
     #instance.save()
     
     #serializer = self.get_serializer(instance)
-    serializer = CoachUpdateProfileSerializer(instance, data=request.data)  
+    achievement_set = request.data["achievement_set"]
+    for ach in achievement_set:
+        ach_id = ach.get('id', None)
+        if ach_id:
+            inv_ach = Achievement.objects.get(id=ach_id, Coach=instance)
+            inv_ach.achievement = ach.get('achievement', inv_ach.achievement)
+            inv_ach.year = ach.get('year', inv_ach.year)
+            inv_ach.save()
+        else:
+            Achievement.objects.create(Coach=instance, **ach)
+
+    detail_set = request.data["detail_set"]
+    for ach in detail_set:
+        ach_id = ach.get('id', None)
+        if ach_id:
+            inv_ach = Detail.objects.get(id=ach_id, Coach=instance)
+            inv_ach.detail = ach.get('detail', inv_ach.detail)
+            #inv_ach.year = ach.get('year', inv_ach.year)
+            inv_ach.save()
+        else:
+            Detail.objects.create(Coach=instance, **ach)
+    
+    
+    serializer = CoachUpdateProfileSerializer(instance, data=request.data) 
     serializer.is_valid(raise_exception=True)
     serializer.save()
     #instance.perform_update(serializer)
