@@ -16,37 +16,51 @@ def customer_view(request):
         return Response(CustomerSerializer(person,many=True).data,
                     status=status.HTTP_200_OK)
         
+# @api_view(['GET'])
+# def customer_search(request, fullName):
+#         person = "not found"
+#         customers = Customer.objects.all()
+#         for customer in customers:
+#             user = User.objects.get(id=customer.user_id)
+#             if user.first_name + " " + user.last_name == fullName:
+#                 person = customer
+#         return Response(CustomerSerializer(person).data , status=status.HTTP_200_OK)
+    
 @api_view(['GET'])
-def customer_search(request, fullName):
-        person = "not found"
+def customer_search(request, str):
+        persons = []
         customers = Customer.objects.all()
         for customer in customers:
             user = User.objects.get(id=customer.user_id)
-            if user.first_name + " " + user.last_name == fullName:
-                person = customer
-        return Response(CustomerSerializer(person).data , status=status.HTTP_200_OK)
+            fullName = " "
+            if user.first_name != None and user.last_name != None:
+                fullName = (user.first_name + " " + user.last_name).lower()
+            if str in fullName:
+                persons.append(customer)
+
+        return Response(CustomerSerializer(persons, many=True).data , status=status.HTTP_200_OK)
 
 @api_view(['GET'])
-def get_customer(request, pk):
+def get_customer(request, user_id):
     try:
-        customer = Customer.objects.get(pk=pk)
+        customer = Customer.objects.get(user_id=user_id)
     except:
         return Response({"error": "Not Found!"}, status=status.HTTP_404_NOT_FOUND)
     ser = CustomerSerializer(customer)
     return Response(ser.data, status=status.HTTP_200_OK)
 
 @api_view(['DELETE'])
-def delete_customer(request, pk):
+def delete_customer(request, user_id):
     try:
-        customer = Customer.objects.get(pk=pk)
+        customer = Customer.objects.get(user_id=user_id)
     except:
         return Response({"error": "Not Found!"}, status=status.HTTP_404_NOT_FOUND)
     customer.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['PUT'])
-def update(request, pk):
-    instance = get_object_or_404(Customer, pk=pk)
+def update(request, user_id):
+    instance = get_object_or_404(Customer, user_id=user_id)
     user_ins = get_object_or_404(User, id = instance.user_id)
     user_ser = CustomerUserSerializer(user_ins, data = request.data['user'])
     user_ser.is_valid(raise_exception=True)
