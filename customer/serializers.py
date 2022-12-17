@@ -8,7 +8,7 @@ class CustomerSerializer(serializers.ModelSerializer):
     user = CustomerUserSerializer( )
     class Meta:
         model = Customer
-        fields = ['id','user_id', 'description', 'user']
+        fields = ['id', 'user_id', 'phone', 'description', 'user']
         #yasin deleted
     #def create(self, validated_data):
         #return super().create(validated_data)

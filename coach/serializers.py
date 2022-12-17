@@ -41,8 +41,8 @@ class CoachUpdateProfileSerializer(serializers.ModelSerializer):
             'description', instance.description)
         instance.phone = validated_data.get(
             'phone', instance.phone)
-        instance.phone = validated_data.get(
-            'phone', instance.phone)
+        # instance.phone = validated_data.get(
+        #     'phone', instance.phone)
         instance.gender = validated_data.get(
             'height', instance.height)
         instance.save()
