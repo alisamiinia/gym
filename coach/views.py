@@ -10,6 +10,7 @@ from accounts.models import User
 from .serializers import *
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import action
+from gym.models import Card,Gym
 
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 #from accounts.serializers import *
@@ -111,13 +112,13 @@ def update(request, pk):
     detail_set = request.data["detail_set"]
     for ach in detail_set:
         ach_id = ach.get('id', None)
-        if ach_id:
-            inv_ach = Detail.objects.get(id=ach_id, Coach=instance)
-            inv_ach.detail = ach.get('detail', inv_ach.detail)
-            #inv_ach.year = ach.get('year', inv_ach.year)
-            inv_ach.save()
-        else:
-            Detail.objects.create(Coach=instance, **ach)
+    #     if ach_id:
+    #         inv_ach = Detail.objects.get(id=ach_id, Coach=instance)
+    #         inv_ach.detail = ach.get('detail', inv_ach.detail)
+    #         #inv_ach.year = ach.get('year', inv_ach.year)
+    #         inv_ach.save()
+    #     else:
+        Detail.objects.create(Coach=instance, **ach)
     
     
     serializer = CoachUpdateProfileSerializer(instance, data=request.data) 

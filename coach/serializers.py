@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import Coach, Detail, Achievement
 from accounts.serializers import CoachUserSerializer
-
+from accounts.serializers import UserSerializer
 
 class DetailSerializer(serializers.ModelSerializer):
     class Meta:
@@ -27,10 +27,10 @@ class CoachUpdateProfileSerializer(serializers.ModelSerializer):
     #user = CoachUserSerializer()
     detail_set = DetailSerializer(many=True)
     achievement_set = AchievementSerializer(many=True)
-    #id = serializers.IntegerField(required=False)
+    id = serializers.IntegerField(required=False)
     class Meta:
         model = Coach
-        fields = ['description', 'phone', 'age', 'height', 'detail_set', 'achievement_set']
+        fields = ['id', 'description', 'phone', 'age', 'height', 'detail_set', 'achievement_set']
     
     def update(self, instance, validated_data):
         #profile_data = validated_data.pop('user')

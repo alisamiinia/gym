@@ -9,6 +9,5 @@ urlpatterns = [
     path('search-coach/<str:str>/', views.coach_search),
     path('get-coach/<int:pk>/', views.get_coach),
     path('update-coach/<int:pk>/', views.update),
-    path('delete-coach/<int:pk>/', views.delete_coach),  
-    #path('update-coach-profile-img/<int:pk>/',views.CoachViewSet.as_view({'put':'profile_img'})),
+    path('delete-coach/<int:pk>/', views.delete_coach)
 ]

@@ -3,7 +3,7 @@ from django.core.validators import RegexValidator
 
 class Coach(models.Model):
     
-    user = models.OneToOneField('accounts.User', on_delete=models.CASCADE, primary_key=True) # recursive error fixed
+    user = models.OneToOneField('accounts.User', on_delete=models.CASCADE)
     # def __init__() -> None:
     #     super(User).__init__()
     description = models.CharField(max_length=100,blank = True, null = True)

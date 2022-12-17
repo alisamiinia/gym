@@ -13,3 +13,10 @@ class Customer(models.Model):
     
     created_at = models.DateTimeField(null=True, blank=True)
     updated_at = models.DateTimeField(null=True, blank=True)
+    
+    #coded temporary from yasin
+    def json(self):
+        return {
+            "user_id" : self.user.id,
+            "name":self.user.first_name
+        }
