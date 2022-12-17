@@ -334,3 +334,34 @@ def post_customer_card(request):
             return Response(ser.data, status=status.HTTP_201_CREATED)
         else:
             return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+
+
+
+@api_view(["GET"])
+def gyms_of_customer(request, pk):
+    gyms = []
+    ids = []
+    cards = CustomerCard.objects.filter(customer=pk)
+    for card in cards:
+        if card.gym.id not in ids:
+            gyms.append(card.gym.json())
+            ids.append(card.gym.id)
+    print(gyms)
+    return Response(gyms, status=status.HTTP_200_OK)
+
+
+
+#gyms that coach should see not accepted
+@api_view(["GET"])
+def gyms_of_coach(request, pk):
+    gyms = []
+    ids = []
+    cards = Card.objects.filter(coach=pk)
+    for card in cards:
+        if card.gym.id not in ids:
+            if card.accepted==False:
+                gyms.append(card.gym.json())
+                ids.append(card.gym.id)
+    print(gyms)
+    return Response(gyms, status=status.HTTP_200_OK)
