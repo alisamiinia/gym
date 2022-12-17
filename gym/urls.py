@@ -20,10 +20,11 @@ urlpatterns = [
     path('update-gym/<int:pk>/', views.update),
     path('get-gym/<int:pk>/', views.get_gym),
     path('owner/<int:ownerId>', views.gym_of_owner),
-    path('gym_customers/<int:pk>', views.gym_customers),
+    path('gym-customers/<int:pk>', views.gym_customers),
     path('get-customer_card', views.get_customer_card),
     path('post-customer_card', views.post_customer_card),
-    
+    path('gyms-of-customer/<int:pk>', views.gyms_of_customer),
+    path('gyms-of-coach/<int:pk>', views.gyms_of_coach),
     ###############
 ]
 router = DefaultRouter()

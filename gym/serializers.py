@@ -66,7 +66,7 @@ class CardReadSerializer(serializers.ModelSerializer):
 
 class CoachCardSerializer(serializers.ModelSerializer):
     user = CoachUserSerializer()
-    # card = CardSerializer()
+    card = CardSerializer()
     class Meta:
         model = Coach 
         fields=['user','description','age','height','phone']
