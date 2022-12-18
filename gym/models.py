@@ -9,6 +9,7 @@ class Gym(models.Model):
     phone = models.CharField(max_length=100)
     gym_reg_code = models.IntegerField(default=999)
     user=models.OneToOneField('accounts.User',on_delete=models.CASCADE)
+    picture = models.TextField(null=True)
     def json(self):
         return {
             "name" : self.name,
@@ -23,14 +24,27 @@ class Owner(models.Model):
     valid_number = [RegexValidator(regex='09(0[1-2])|(1[0-9])|(3[0-9])|(2[0-1])-?[0-9]{3}-?[0-9]{4}')]
     phone = models.CharField(max_length=11,validators=valid_number, blank=True, null = True)
 
+
+class Coursecategory(models.Model):
+    name= models.CharField(max_length=250)
+    
+    def getname(self):
+        return self.name
+
 class Course(models.Model):
     name = models.CharField(max_length=30)
     time = models.CharField(max_length=30, default="8_22")
     gym = models.ForeignKey(Gym, on_delete=models.CASCADE)
     coachname = models.CharField(max_length=30,default="morabi")
     memebercount = models.CharField(max_length=30,default="10")
-    
-    
+    coachname = models.CharField(null=True,max_length=200)
+    CourseCategory = models.ForeignKey(Coursecategory,max_length=250,null=True,on_delete=models.CASCADE)
+
+
+
+
+
+        
 # class Card(models.Model):
 #     coach=models.ForeignKey(Coach,on_delete=models.SET_NULL,null=True)
 #     gym=models.ForeignKey(Gym,on_delete=models.CASCADE)

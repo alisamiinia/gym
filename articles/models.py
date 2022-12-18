@@ -13,11 +13,11 @@ class category(models.Model):
 
 class article(models.Model):
     title = models.CharField(max_length=200)
-    writerid = models.OneToOneField('accounts.User', on_delete=models.CASCADE, primary_key=True) # recursive error fixed
+    writerid = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     articleDescription = models.CharField(max_length=250)
     articleContent = models.TextField()
     readDuration = models.CharField(max_length=250)
-    PicUrl = models.CharField(max_length=250,null=True)
+    PicUrl = models.TextField(null=True)
     description = models.CharField(max_length=250,null=True)
     writerName= models.CharField(max_length=250)
     articleCategory = models.ForeignKey(category,max_length=250,null=True,on_delete=models.CASCADE)
