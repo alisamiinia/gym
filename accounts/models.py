@@ -32,7 +32,7 @@ class User(AbstractUser):
     #phone = models.CharField(max_length=11,validators=valid_number,blank=True, null=True)
     personal_id = models.CharField(max_length=10,validators=[RegexValidator(regex='^[0-9]{10}')],blank=True, null=True)
     gender = models.CharField(max_length=1,choices=sexuality_choises, blank=True, null=True)
-    picUrl = models.TextField(null=True)
+    picUrl = models.TextField(null=True, blank=True)
     # picUrl = models.ImageField(upload_to=upload_to, blank=True, null=True)
     # picture = models.TextField(null=True)
     role = models.CharField(max_length=8,choices=ROLE_CHOICES,default="Customer")

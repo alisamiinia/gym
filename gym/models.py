@@ -9,7 +9,7 @@ class Gym(models.Model):
     phone = models.CharField(max_length=100)
     gym_reg_code = models.IntegerField(default=999)
     user=models.OneToOneField('accounts.User',on_delete=models.CASCADE)
-    picture = models.TextField(null=True)
+    picture = models.TextField(null=True, blank=True)
     def json(self):
         return {
             "name" : self.name,
