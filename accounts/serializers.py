@@ -65,7 +65,7 @@ class CoachUserSerializer(serializers.ModelSerializer):
 class CustomerUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['username', 'email', 'personal_id', 'gender', 'picUrl', 'first_name', 'last_name',]
+        fields = ['username', 'email', 'personal_id', 'gender', 'picture', 'first_name', 'last_name',]
         
 class GymUserSerializer(serializers.ModelSerializer):
     class Meta:

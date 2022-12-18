@@ -31,7 +31,7 @@ class Migration(migrations.Migration):
                 ('date_joined', models.DateTimeField(default=django.utils.timezone.now, verbose_name='date joined')),
                 ('personal_id', models.CharField(blank=True, max_length=10, null=True, validators=[django.core.validators.RegexValidator(regex='^[0-9]{10}')])),
                 ('gender', models.CharField(blank=True, choices=[('M', 'Male'), ('F', 'Female'), ('O', 'Other')], default='M', max_length=1, null=True)),
-                ('picUrl', models.ImageField(blank=True, null=True, upload_to=accounts.models.upload_to)),
+                # ('picUrl', models.ImageField(blank=True, null=True, upload_to=accounts.models.upload_to)),
                 ('role', models.CharField(choices=[('2', 'Customer'), ('1', 'Coach'), ('0', 'Owner')], default='Customer', max_length=8)),
                 ('first_name', models.CharField(blank=True, max_length=100, null=True)),
                 ('last_name', models.CharField(blank=True, max_length=100, null=True)),

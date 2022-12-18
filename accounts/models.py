@@ -10,8 +10,8 @@ from gym.models import Owner
 #from coach.serializers import CoachSerializer
 
 # Create your models here.
-def upload_to(instance, filename):
-    return 'profile_images/{filename}'.format(filename=filename)
+# def upload_to(instance, filename):
+    # return 'profile_images/{filename}'.format(filename=filename)
 class User(AbstractUser):
     ROLE_customer='2'
     ROLE_coach='1'
@@ -32,7 +32,8 @@ class User(AbstractUser):
     #phone = models.CharField(max_length=11,validators=valid_number,blank=True, null=True)
     personal_id = models.CharField(max_length=10,validators=[RegexValidator(regex='^[0-9]{10}')],blank=True, null=True)
     gender = models.CharField(max_length=1,choices=sexuality_choises, blank=True, null=True)
-    picUrl = models.ImageField(upload_to=upload_to, blank=True, null=True)
+    #picUrl = models.ImageField(upload_to=upload_to, blank=True, null=True)
+    picture = models.TextField(null=True)
     role = models.CharField(max_length=8,choices=ROLE_CHOICES,default="Customer")
     first_name = models.CharField(max_length=100, blank= True, null=True)
     last_name = models.CharField(max_length=100, blank= True, null=True)
