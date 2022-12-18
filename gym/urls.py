@@ -14,7 +14,7 @@ urlpatterns = [
     path('get-cards', views.get_cards),
     path('post-card', views.post_card),
     path('gym-with-coaches', views.gym_with_coaches),
-    path('get-card-coaches/<int:pk>', views.gym_coaches),
+    path('coaches-of-gym/<int:pk>', views.gym_coaches),
     path('coaches/<int:gymId>/', views.get_coaches_of_gym),
     #Ali################################################################
     path('update-gym/<int:pk>/', views.update),
@@ -30,5 +30,6 @@ urlpatterns = [
 router = DefaultRouter()
 router.register('gym', views.GymViewSet)
 router.register('course', views.CourseViewSet)
+router.register('course-category', views.Coursecategoryviewset)
 # router.register('gymsearch', views.gymListView)
 urlpatterns += router.urls
