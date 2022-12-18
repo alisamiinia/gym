@@ -31,7 +31,7 @@ class User(AbstractUser):
     #valid_number = [RegexValidator(regex='09(0[1-2])|(1[0-9])|(3[0-9])|(2[0-1])-?[0-9]{3}-?[0-9]{4}')]
     #phone = models.CharField(max_length=11,validators=valid_number,blank=True, null=True)
     personal_id = models.CharField(max_length=10,validators=[RegexValidator(regex='^[0-9]{10}')],blank=True, null=True)
-    gender = models.CharField(max_length=1,choices=sexuality_choises,default="M", blank=True, null=True)
+    gender = models.CharField(max_length=1,choices=sexuality_choises, blank=True, null=True)
     picUrl = models.ImageField(upload_to=upload_to, blank=True, null=True)
     role = models.CharField(max_length=8,choices=ROLE_CHOICES,default="Customer")
     first_name = models.CharField(max_length=100, blank= True, null=True)
