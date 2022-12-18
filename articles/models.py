@@ -4,6 +4,7 @@ from accounts.models import *
 
 class category(models.Model):
     name= models.CharField(max_length=250)
+    isvalid=models.BooleanField(null=True)
     
     def getname(self):
         return self.name

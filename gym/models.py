@@ -18,6 +18,7 @@ class Gym(models.Model):
             "user_id":self.user.id
 
         }
+    isvalid=models.BooleanField(null=True)
     
 
 class Owner(models.Model):
@@ -30,6 +31,7 @@ class Owner(models.Model):
 
 class Coursecategory(models.Model):
     name= models.CharField(max_length=250)
+    isvalid=models.BooleanField(null=True)
     
     def getname(self):
         return self.name
@@ -42,6 +44,7 @@ class Course(models.Model):
     memebercount = models.CharField(max_length=30,default="10")
     coachname = models.CharField(null=True,max_length=200)
     CourseCategory = models.ForeignKey(Coursecategory,max_length=250,null=True,on_delete=models.CASCADE)
+    isvalid=models.BooleanField(null=True)
 
 
 
@@ -60,10 +63,12 @@ class Card(models.Model):
     #user=models.ForeignKey(User,on_delete=models.CASCADE)
     description = models.CharField(max_length=200)
     accepted = models.BooleanField(default=False)
+    isvalid=models.BooleanField(null=True)
 
 
 class CustomerCard(models.Model):
     customer=models.ForeignKey(Customer,on_delete=models.CASCADE,null=True)
     gym=models.ForeignKey(Gym,on_delete=models.CASCADE)
     #user=models.ForeignKey(User,on_delete=models.CASCADE)
+    isvalid=models.BooleanField(null=True)
     
