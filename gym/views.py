@@ -172,6 +172,41 @@ def post_card(request):
         else:
             return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
 
+#cards of coach crud
+class CardViewSet(viewsets.ModelViewSet):
+    queryset = Card.objects.all()
+    serializer_class = CardSerializer
+    http_method_names = ['get', 'post', 'put', 'delete']
+    
+    def list(self, request, *args, **kwargs):
+        objs = super().list(request, *args, **kwargs)
+        #print("---- List ----")
+        return objs
+
+    def create(self, request, *args, **kwargs):
+        obj = super().create(request, *args, **kwargs)
+        #print("---- Create ----")
+        return obj
+
+    def update(self, request, *args, **kwargs):
+        obj = super().update(request, *args, **kwargs)
+        instance = self.get_object()
+        #print("---- Update : {}".format())
+        return obj
+
+    def retrieve(self, request, *args, **kwargs):
+        obj = super().retrieve(request, *args, **kwargs)
+        instance = self.get_object()
+        #print("---- Retrieve : {}".format(instance.name))
+        return obj
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        #print("---- Destroy : {}".format())
+        obj = super().destroy(request, *args, **kwargs)
+        return obj
+
+
 
 @api_view(['GET'])
 def readcardsview(request):
@@ -354,7 +389,7 @@ def gyms_of_customer(request, pk):
 
 #gyms that coach should see not accepted
 @api_view(["GET"])
-def gyms_of_coach(request, pk):
+def pending_gyms_of_coach(request, pk):
     gyms = []
     ids = []
     cards = Card.objects.filter(coach=pk)
@@ -366,7 +401,18 @@ def gyms_of_coach(request, pk):
     print(gyms)
     return Response(gyms, status=status.HTTP_200_OK)
 
-
+@api_view(["GET"])
+def accepted_gyms_of_coach(request, pk):
+    gyms = []
+    ids = []
+    cards = Card.objects.filter(coach=pk)
+    for card in cards:
+        if card.gym.id not in ids:
+            if card.accepted==True:
+                gyms.append(card.gym.json())
+                ids.append(card.gym.id)
+    print(gyms)
+    return Response(gyms, status=status.HTTP_200_OK)
 
 #categoryofcourse
 class Coursecategoryviewset(viewsets.ModelViewSet):
