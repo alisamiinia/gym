@@ -14,6 +14,9 @@ class Gym(models.Model):
         return {
             "name" : self.name,
             "adress":self.adress,
+            "id":self.id,
+            "user_id":self.user.id
+
         }
     
 
