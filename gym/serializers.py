@@ -15,7 +15,7 @@ class GymWithCoachesSerializer(serializers.ModelSerializer):
     #coach = CoachSerializer()
     class Meta:
         model = Gym
-        fields = ['id','name','adress','phone','gym_reg_code','card_set']
+        fields = ['id','name','adress','phone','gym_reg_code','card_set','picture']
         #fields = '__all__'
         #depth=1
 
