@@ -71,4 +71,5 @@ class CustomerCard(models.Model):
     gym=models.ForeignKey(Gym,on_delete=models.CASCADE)
     #user=models.ForeignKey(User,on_delete=models.CASCADE)
     isvalid=models.BooleanField(null=True)
+    # join_date = models.DateField()
     
