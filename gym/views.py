@@ -162,6 +162,21 @@ def get_cards(request):
         return Response(CardSerializer(course, many=True).data,
                       status=status.HTTP_200_OK)
 
+#asghar in
+@api_view(['GET'])
+def get_card(request, coachId, gymId):
+    if request.method == "GET":
+        course = get_object_or_404(Card, coach_id = coachId,gym_id = gymId)
+        return Response( {
+            'id': course.id,
+            'description': course.description,
+            'accepted': course.accepted,
+            'coach_id': course.coach_id,
+            'gym_id': course.gym_id,
+            'isvalid': course.isvalid
+        }, status=status.HTTP_200_OK)
+#asghar out
+
 @api_view(['POST'])
 def post_card(request):        
     if request.method == "POST":
