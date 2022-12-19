@@ -12,6 +12,11 @@ urlpatterns = [
     path('get_gym_classes', views.get_gym_classes),
     path('readcardsviews', views.readcardsview),
     path('get-cards', views.get_cards),
+
+    # asghar in
+    path('get-card/coach=<int:coachId>&gym=<int:gymId>', views.get_card),
+    # asghar out
+
     path('post-card', views.post_card),
     path('gym-with-coaches', views.gym_with_coaches),
     path('coaches-of-gym/<int:pk>', views.gym_coaches),
