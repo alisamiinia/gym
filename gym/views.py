@@ -304,7 +304,8 @@ def get_coaches_of_gym(request, gymId):
     cards = Card.objects.filter(gym=gymId)
     coaches = []
     for card in cards:
-        coaches.append(card.coach)
+        if(card.isvalid):
+            coaches.append(card.coach)
     return Response(CoachCardSerializer(coaches,many=True).data,status=status.HTTP_200_OK)
 
 
