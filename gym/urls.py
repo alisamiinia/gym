@@ -26,6 +26,8 @@ urlpatterns = [
     path('gyms-of-customer/<int:pk>', views.gyms_of_customer),
     path('pending-gyms-of-coach/<int:pk>', views.pending_gyms_of_coach),
     path('accepted-gyms-of-coach/<int:pk>', views.accepted_gyms_of_coach),
+    path('customers/<int:gymId>', views.get_customers_of_gym),
+    path('<int:gymId>/customer/<int:customerId>', views.kick_customer)
     ###############
 ]
 router = DefaultRouter()

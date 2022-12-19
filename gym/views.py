@@ -343,7 +343,6 @@ def gym_customers(request, pk):
         if card.customer.user_id not in ids:
             customers.append(card.customer.json())
             ids.append(card.customer.user_id)
-    print(customers)
     return Response(customers, status=status.HTTP_200_OK)
 
 
@@ -359,6 +358,40 @@ def get_customer_card(request):
         customers = CustomerCard.objects.all()
         return Response(CustomerCardSerializer(customers, many=True).data,
                       status=status.HTTP_200_OK)
+#sohi
+class GymCustomerViewModel:
+    def __init__(self,customer) -> None:
+        self.customer = customer
+        self.user = customer.user
+        
+    def json(self):
+        return {'username':self.user.username, "email":self.user.email, "customer_id":self.customer.id, "full_name":self.fullName(self.user.first_name, self.user.last_name)}
+
+    def fullName(self,first_name, last_name):
+        if(first_name is not None and last_name is not None):
+            return first_name + ' ' + last_name
+        else:
+            return None
+
+@api_view(['GET'])
+def get_customers_of_gym(request, gymId):
+    customerCard = CustomerCard.objects.filter(gym=gymId)
+    customers = []
+    for card in customerCard:
+        gymCustomer = GymCustomerViewModel(card.customer)
+        customers.append(gymCustomer.json())
+    return Response(customers,status=status.HTTP_200_OK)
+
+@api_view(['DELETE'])
+def kick_customer(request, gymId, customerId):
+    customerCard = CustomerCard.objects.filter(customer=customerId).get(gym=gymId)
+    customerCard.delete()
+    customerCard = CustomerCard.objects.filter(gym=gymId)
+    customers = []
+    for card in customerCard:
+        gymCustomer = GymCustomerViewModel(card.customer)
+        customers.append(gymCustomer.json())
+    return Response(customers,status=status.HTTP_200_OK)
         
 @api_view(['POST'])
 def post_customer_card(request):        
