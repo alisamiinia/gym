@@ -82,8 +82,10 @@ class MyTokenObtainPairView(TokenObtainPairView):
 #     return Response(user_ser.data, status=status.HTTP_200_OK)
 
 
+
+# return Object id by given user_id
 @api_view(['GET'])
-def get_user(request, user_id):
+def get_user_id(request, user_id):
     id = None
     try:
         user = get_object_or_404(User, id = user_id)
@@ -101,6 +103,27 @@ def get_user(request, user_id):
     return Response({"role_id": f"{id}"}, status=status.HTTP_200_OK)
 
 
+@api_view(['GET'])
+def get_user(request, user_id):
+    id = None
+    try:
+        user = get_object_or_404(User, id = user_id)
+        role = user.role
+        instance = None
+        if role == '0':
+            instance = get_object_or_404(Owner, user_id = user_id)
+        elif role == '1':
+            instance = get_object_or_404(Coach, user_id = user_id)
+        elif role == '2':
+            instance = get_object_or_404(Customer, user_id = user_id)
+        id = instance.id
+        user_ser = UserGetSerializer(user)
+        # user_ser.is_valid(raise_exception=True)
+    except:
+        return Response({"error": "Not Found!"}, status=status.HTTP_404_NOT_FOUND)
+    data = user_ser.data
+    data.update({"role_id": f"{id}"})
+    return Response(data, status=status.HTTP_200_OK)
 
 
 
