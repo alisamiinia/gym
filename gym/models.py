@@ -15,8 +15,9 @@ class Gym(models.Model):
             "name" : self.name,
             "adress":self.adress,
             "id":self.id,
-            "user_id":self.user.id
-
+            "user_id":self.user.id,
+            "picUrl": self.picture ,
+            "phone": self.phone
         }
     isvalid=models.BooleanField(null=True)
     
