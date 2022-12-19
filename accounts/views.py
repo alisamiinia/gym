@@ -13,7 +13,14 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import viewsets
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from rest_framework.decorators import action
+
+from gym.models import Owner
+from coach.models import Coach
+from customer.models import Customer
+
+
 import os
+
 class CreateUserView(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -59,22 +66,39 @@ class MyTokenObtainPairView(TokenObtainPairView):
 
 
 
+# @api_view(['GET'])
+# def get_user(request):
+#     try:
+#         #user = Customer.objects.get(pk=pk)
+#         userid = request.data['id']
+#         user = get_object_or_404(User, id = userid)
+#         user_ser = UserGetSerializer(user)
+#         user_ser.is_valid(raise_exception=True)
+#         #access_token = AccessToken(request)
+#         #user = User.objects.get(access_token['user_id'])
+#     except:
+#         return Response({"error": "Not Found!"}, status=status.HTTP_404_NOT_FOUND)
+#     #ser = UserGetSerializer(data = user)
+#     return Response(user_ser.data, status=status.HTTP_200_OK)
+
+
 @api_view(['GET'])
-def get_user(request):
+def get_user(request, user_id):
+    id = None
     try:
-        #user = Customer.objects.get(pk=pk)
-        userid = request.data['id']
-        user = get_object_or_404(User, id = userid)
-        user_ser = UserGetSerializer(user)
-        user_ser.is_valid(raise_exception=True)
-        #access_token = AccessToken(request)
-        #user = User.objects.get(access_token['user_id'])
+        user = get_object_or_404(User, id = user_id)
+        role = user.role
+        instance = None
+        if role == '0':
+            instance = get_object_or_404(Owner, user_id = user_id)
+        elif role == '1':
+            instance = get_object_or_404(Coach, user_id = user_id)
+        elif role == '2':
+            instance = get_object_or_404(Customer, user_id = user_id)
+        id = instance.id        
     except:
         return Response({"error": "Not Found!"}, status=status.HTTP_404_NOT_FOUND)
-    #ser = UserGetSerializer(data = user)
-    return Response(user_ser.data, status=status.HTTP_200_OK)
-
-
+    return Response({"role_id": f"{id}"}, status=status.HTTP_200_OK)
 
 
 
