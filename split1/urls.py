@@ -45,6 +45,7 @@ urlpatterns = [
     path('article/',include('articles.urls')),
     path('api/auth/', include('djoser.urls')),
     path('api/auth/', include('djoser.urls.jwt')),
+    path('post/',include('Post.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # 

@@ -65,10 +65,17 @@ class User(AbstractUser):
             add_Owner_ins=Owner(user_id=self.pk, phone=phoneNum)
             add_Owner_ins.save()
             return True
-        
+    ##yasin edit    
+    def json(self):
+        return {
+            "id":self.id
+        }
+    ###########################
+    ##end yasin edit
         
     def __str__(self) :
         return self.username #self.first_name+" "+self.last_name
     class Meta :
         ordering=['last_name']
+    
         

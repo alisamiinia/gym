@@ -7,7 +7,7 @@ from django.db.models import Q
 from rest_framework import filters
 from rest_framework import generics
 
-from .models import Gym, Course, Card, CustomerCard
+from .models import *
 from .serializers import GymSerializer, CourseSerializer,CourseReadSerializer
 from .serializers import *
 from coach.models import Coach
@@ -499,3 +499,73 @@ class Coursecategoryviewset(viewsets.ModelViewSet):
         print("---- Destroy : {}".format(instance.name))
         obj = super().destroy(request, *args, **kwargs)
         return obj
+    
+
+
+###################################################################################################################################################
+#api for customers and courses (crud)
+class CustomerCourseCardViewSet(viewsets.ModelViewSet):
+    queryset = CustomerCourseCard.objects.all()
+    serializer_class = CustomerCourseCardSerializer
+    http_method_names = ['get', 'post', 'put', 'delete']
+
+    search_fields = ('name', )
+    ordering_fields = '__all__'
+
+    def list(self, request, *args, **kwargs):
+        objs = super().list(request, *args, **kwargs)
+        print("---- List ----")
+        return objs
+
+    def create(self, request, *args, **kwargs):
+        obj = super().create(request, *args, **kwargs)
+        print("---- Create ----")
+        return obj
+
+    def update(self, request, *args, **kwargs):
+        obj = super().update(request, *args, **kwargs)
+        instance = self.get_object()
+        print("---- Update : {}".format(instance.name))
+        return obj
+
+    def retrieve(self, request, *args, **kwargs):
+        obj = super().retrieve(request, *args, **kwargs)
+        instance = self.get_object()
+        print("---- Retrieve : {}".format(instance.name))
+        return obj
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        print("---- Destroy : {}".format(instance.name))
+        obj = super().destroy(request, *args, **kwargs)
+        return obj
+
+
+@api_view(["GET"])
+def pending_customers_of_course(request, pk):
+    customers = []
+    ids = []
+    cards = CustomerCourseCard.objects.filter(course=pk)
+    for card in cards:
+        if card.customer.id not in ids:
+            if card.accepted==False:
+                customers.append(card.customer.json())
+                ids.append(card.customer.id)
+    print(customers)
+    return Response(customers, status=status.HTTP_200_OK)
+
+@api_view(["GET"])
+def accepted_customers_of_course(request, pk):
+    customers = []
+    ids = []
+    cards = CustomerCourseCard.objects.filter(course=pk)
+    for card in cards:
+        if card.customer.id not in ids:
+            if card.accepted==True:
+                customers.append(card.customer.json())
+                ids.append(card.customer.id)
+    print(customers)
+    return Response(customers, status=status.HTTP_200_OK)
+
+#####################################################################################################################################
+#post

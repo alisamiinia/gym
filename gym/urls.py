@@ -32,7 +32,10 @@ urlpatterns = [
     path('pending-gyms-of-coach/<int:pk>', views.pending_gyms_of_coach),
     path('accepted-gyms-of-coach/<int:pk>', views.accepted_gyms_of_coach),
     path('customers/<int:gymId>', views.get_customers_of_gym),
-    path('<int:gymId>/customer/<int:customerId>', views.kick_customer)
+    path('<int:gymId>/customer/<int:customerId>', views.kick_customer),
+    path('pending-customers-of-course/<int:pk>', views.pending_customers_of_course),
+    path('accepted-customers-of-course/<int:pk>', views.accepted_customers_of_course),
+    
     ###############
 ]
 router = DefaultRouter()
@@ -40,5 +43,6 @@ router.register('gym', views.GymViewSet)
 router.register('course', views.CourseViewSet)
 router.register('course-category', views.Coursecategoryviewset)
 router.register('coach-card', views.CardViewSet)
+router.register('course-customer-card', views.CustomerCourseCardViewSet)
 # router.register('gymsearch', views.gymListView)
 urlpatterns += router.urls

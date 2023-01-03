@@ -1,9 +1,9 @@
 from rest_framework import serializers
-from .models import Gym, Course,Card,CustomerCard,Coursecategory
+from .models import Gym, Course,Card,CustomerCard,Coursecategory,CustomerCourseCard
 from coach.models import Coach
 from coach.serializers import *
 from accounts.serializers import GymUserSerializer
-
+from django.utils import timezone
 
 
 class GymSerializer(serializers.ModelSerializer):
@@ -99,3 +99,14 @@ class CustomerCardSerializer(serializers.ModelSerializer):
         model = CustomerCard
         fields ='__all__'
         
+class CustomerCourseCardSerializer(serializers.ModelSerializer):
+    #coach=CoachSerializer()
+    #gym=GymSerializer()
+    #user=UserGymSerializer()
+    class Meta:
+        model = CustomerCourseCard
+        fields ='__all__'
+        
+        
+        
+###############################################################################################################################
