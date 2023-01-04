@@ -67,6 +67,7 @@ class Card(models.Model):
     isvalid=models.BooleanField(null=True)
 
 
+#customersofgym
 class CustomerCard(models.Model):
     customer=models.ForeignKey(Customer,on_delete=models.CASCADE,null=True)
     gym=models.ForeignKey(Gym,on_delete=models.CASCADE)
@@ -74,3 +75,15 @@ class CustomerCard(models.Model):
     isvalid=models.BooleanField(null=True)
     # join_date = models.DateField()
     
+#customersofcoach
+class CustomerCourseCard(models.Model):
+    customer=models.ForeignKey(Customer,on_delete=models.CASCADE,null=True)
+    course=models.ForeignKey(Course,on_delete=models.CASCADE)
+    accepted=models.BooleanField(default=False)
+    
+
+
+
+###############################################################################################################################################################################
+
+
