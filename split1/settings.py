@@ -52,7 +52,8 @@ INSTALLED_APPS = [
     'coach',
     'customer',
     'articles',
-    'Post'
+    'Post',
+    'q_a',
 ]
 AUTH_USER_MODEL = "accounts.User"
 MIDDLEWARE = [
