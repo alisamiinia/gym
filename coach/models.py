@@ -13,7 +13,7 @@ class Coach(models.Model):
     height = models.IntegerField(blank = True, null = True)
     #gender = models.IntegerField(blank = True, null = True)
     #picUrl = models.ImageField(blank = True, null = True)
-
+    rank_number = models.IntegerField(blank = True, null = True)
     created_at = models.DateTimeField(null=True, blank=True)
     updated_at = models.DateTimeField(null=True, blank=True)
     
