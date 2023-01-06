@@ -5,6 +5,8 @@ from q_a import views
 urlpatterns = [
     path('post-question/', views.post_question),
     path('post-answer/', views.post_answer),
+    path('post-answer-score/', views.post_answer_score),
+    path('post-question-score/', views.post_question_score),
     
     # path('get-all-customers/', views.customer_view),
     # path('search-customer/<str:str>/', views.customer_search),
