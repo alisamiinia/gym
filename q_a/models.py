@@ -7,7 +7,7 @@ class Question(models.Model):
   date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
   category = models.CharField(max_length=250)
   writerId = models.IntegerField()
-  acceptedAnswerId = models.IntegerField(null=True, blank=True)
+  acceptedAnswerId = models.IntegerField(default=-1, null=True, blank=True)
 
   def score(self):
     scores = QuestionScore.objects.filter(questionId=self.id)
