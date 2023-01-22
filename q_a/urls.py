@@ -10,7 +10,7 @@ urlpatterns = [
     path('post-answer/', views.post_answer),
     path('post-answer-score/', views.post_answer_score),
     path('post-question-score/', views.post_question_score),
-    path('search-questions/', views.search_questions),
+    path('search-questions/<str:category>-<str:str>/', views.search_questions),
     
     
     # path('get-all-customers/', views.customer_view),

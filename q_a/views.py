@@ -234,5 +234,27 @@ def get_user_answers(request, writerId):
         return Response(content, status=status.HTTP_200_OK)
     
 @api_view(['GET'])
-def search_questions(request, category, str):
-    pass
+def search_questions(request, category, str):    
+    questions = Question.objects.filter(category=category)
+    content = []
+    for question in questions:
+        if str not in question.title:
+            continue
+        qs = QuestionSerializer(question)
+        userScore = 0
+        try: 
+            userScore = QuestionScore.objects.get(questionId=question.id, userId=writerId).score
+        except:
+            pass
+        tmp_content = {
+        'questionDetail' : qs.data, 
+        'score': question.score(),
+        'userScore': userScore,
+        'answerCount': question.answer_count()
+        }
+        content.append(tmp_content)
+    return Response(content, status=status.HTTP_200_OK)        
+    #tmp = coachs.filter(user__contains='fullName')
+    
+    
+    return Response(CoachSerializer(persons, many=True).data , status=status.HTTP_200_OK)
