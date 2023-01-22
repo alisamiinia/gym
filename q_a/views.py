@@ -154,7 +154,11 @@ def get_question(request, questionId, userId):
                 'score': ans.score(),
                 'userScore': userScore #AnswerScore.objects.get(answerId=ans.id, userId=userId).score
             }
-            ans_content.append(tmp_content)
+            
+            if question.acceptedAnswerId == ans.id:
+                ans_content.insert(0,tmp_content)
+            else:
+                ans_content.append(tmp_content)
         userScore = 0
         try: 
             userScore = QuestionScore.objects.get(questionId=questionId, userId=userId).score
