@@ -5,7 +5,8 @@ from q_a import views
 urlpatterns = [
     path('post-question/', views.post_question),
     path('get-question/<int:questionId>-<int:userId>/', views.get_question),
-    path('get-questions/<int:writerId>/', views.get_questions),
+    path('get-user-questions/<int:writerId>/', views.get_user_questions),
+    path('get-user-answers/<int:writerId>/', views.get_user_answers),
     path('post-answer/', views.post_answer),
     path('post-answer-score/', views.post_answer_score),
     path('post-question-score/', views.post_question_score),

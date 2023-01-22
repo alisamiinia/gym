@@ -176,20 +176,44 @@ def get_question(request, questionId, userId):
                     # status=status.HTTP_200_OK)
 
 @api_view(['GET'])
-def get_questions(request, writerId):
+def get_user_questions(request, writerId):
         questions = Question.objects.filter(writerId=writerId)
+        content = []
         for question in questions:
             qs = QuestionSerializer(question)
-            content = {
-            'question' : qs.data, 
-            'total_score': question.score(),
+            userScore = 0
+            try: 
+                userScore = QuestionScore.objects.get(questionId=question.id, userId=writerId).score
+            except :
+                pass
+            tmp_content = {
+            'questionDetail' : qs.data, 
+            'score': question.score(),
+            'userScore': userScore,
+            'answerCount': question.answer_count()
             }
+            content.append(tmp_content)
         return Response(content, status=status.HTTP_200_OK)
         # return Response(QuestionSerializer(questions,many=True).data,
                     # status=status.HTTP_200_OK)
 
-# from .serializers import QuestionGetSerializer
-# @api_view(['GET'])
-# def get_coach(request, pk):
-#     ser = QuestionGetSerializer()
-#     return Response(ser.data, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def get_user_answers(request, writerId):
+        answers = Answer.objects.filter(writerId=writerId)
+        content = []
+        for answer in answers:
+            ans = AnswerSerializer(answer)
+            userScore = 0
+            try: 
+                userScore = AnswerScore.objects.get(answerId=Answer.id, userId=writerId).score
+            except :
+                pass
+            tmp_content = {
+                'AnswerDetail' : ans.data, 
+                'score': answer.score(),
+                'userScore': userScore,
+                'questionTitle': Question.objects.get(id = answer.questionId).title
+            }
+            content.append(tmp_content)
+        return Response(content, status=status.HTTP_200_OK)
