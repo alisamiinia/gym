@@ -56,7 +56,13 @@ def post_question_score(request):
             ser = QuestionScoreSerializer(data=request.data)
             if ser.is_valid():
                 ser.save()
-                return Response(ser.data, status=status.HTTP_201_CREATED)
+                s = {
+                    "userId": ser.data['userId'],
+                    "questionId": ser.data['questionId'],
+                    "score": ser.data['score'],
+                    "totalScore": Question.objects.get(id=ser.data['questionId']).score()
+                }
+                return Response(s, status=status.HTTP_201_CREATED)
             else:
                 return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
         else :
@@ -68,7 +74,9 @@ def post_question_score(request):
                 # "id": score_id,
                 "userId": obj.userId,
                 "questionId": obj.questionId,
-                "score": obj.score
+                "score": obj.score,
+                "totalScore": Question.objects.get(id=obj.questionId).score()
+
             }
             return Response(content, status=status.HTTP_200_OK)
 
@@ -117,7 +125,13 @@ def post_answer_score(request):
             ser = AnswerScoreSerializer(data=request.data)
             if ser.is_valid():
                 ser.save()
-                return Response(ser.data, status=status.HTTP_201_CREATED)
+                s = {
+                    "userId": ser.data['userId'],
+                    "answerId": ser.data['answerId'],
+                    "score": ser.data['score'],
+                    "totalScore": Answer.objects.get(id=ser.data['answerId']).score()
+                }
+                return Response(s, status=status.HTTP_201_CREATED)
             else:
                 return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
         else :
@@ -129,7 +143,8 @@ def post_answer_score(request):
                 # "id": score_id,
                 "userId": obj.userId,
                 "answerId": obj.answerId,
-                "score": obj.score
+                "score": obj.score,
+                "totalScore": Answer.objects.get(id=obj.answerId).score()
             }
             return Response(content, status=status.HTTP_200_OK)
 
@@ -217,3 +232,7 @@ def get_user_answers(request, writerId):
             }
             content.append(tmp_content)
         return Response(content, status=status.HTTP_200_OK)
+    
+@api_view(['GET'])
+def search_questions(request, category, str):
+    pass

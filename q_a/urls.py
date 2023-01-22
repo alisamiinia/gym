@@ -10,6 +10,8 @@ urlpatterns = [
     path('post-answer/', views.post_answer),
     path('post-answer-score/', views.post_answer_score),
     path('post-question-score/', views.post_question_score),
+    path('search-questions/', views.search_questions),
+    
     
     # path('get-all-customers/', views.customer_view),
     # path('search-customer/<str:str>/', views.customer_search),
