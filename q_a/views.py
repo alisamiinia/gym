@@ -243,7 +243,7 @@ def search_questions(request, category, str):
         qs = QuestionSerializer(question)
         userScore = 0
         try: 
-            userScore = QuestionScore.objects.get(questionId=question.id, userId=writerId).score
+            userScore = QuestionScore.objects.get(questionId=question.id, userId=qs.data['writerId']).score
         except:
             pass
         tmp_content = {
@@ -256,5 +256,3 @@ def search_questions(request, category, str):
     return Response(content, status=status.HTTP_200_OK)        
     #tmp = coachs.filter(user__contains='fullName')
     
-    
-    return Response(CoachSerializer(persons, many=True).data , status=status.HTTP_200_OK)
