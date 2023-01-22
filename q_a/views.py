@@ -132,3 +132,60 @@ def post_answer_score(request):
                 "score": obj.score
             }
             return Response(content, status=status.HTTP_200_OK)
+
+
+from .models import Question, Answer
+@api_view(['GET'])
+def get_question(request, questionId, userId):
+        question = Question.objects.get(id=questionId)
+        answers = Answer.objects.filter(questionId=questionId)
+        # ans_ser = AnswerSerializer(answers,many=True)
+        qs = QuestionSerializer(question)
+        ans_content = []
+        for ans in answers:
+            ans_ser = AnswerSerializer(ans)
+            userScore = 0
+            try:
+                userScore = AnswerScore.objects.get(answerId=ans.id, userId=userId).score
+            except:
+                pass
+            tmp_content = {
+                'answerDetail': ans_ser.data,
+                'score': ans.score(),
+                'userScore': userScore #AnswerScore.objects.get(answerId=ans.id, userId=userId).score
+            }
+            ans_content.append(tmp_content)
+        userScore = 0
+        try: 
+            userScore = QuestionScore.objects.get(questionId=questionId, userId=userId).score
+        except :
+            pass
+        content = {
+        'score': question.score(),
+        'userScore': userScore, #QuestionScore.objects.get(questionId=questionId, userId=userId).score,
+        'questionDetail' : qs.data, 
+        'answerCount': question.answer_count(),
+        'Answers': ans_content
+        }
+        return Response(content, status=status.HTTP_200_OK)
+        # return Response(QuestionSerializer(questions,many=True).data,
+                    # status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def get_questions(request, writerId):
+        questions = Question.objects.filter(writerId=writerId)
+        for question in questions:
+            qs = QuestionSerializer(question)
+            content = {
+            'question' : qs.data, 
+            'total_score': question.score(),
+            }
+        return Response(content, status=status.HTTP_200_OK)
+        # return Response(QuestionSerializer(questions,many=True).data,
+                    # status=status.HTTP_200_OK)
+
+# from .serializers import QuestionGetSerializer
+# @api_view(['GET'])
+# def get_coach(request, pk):
+#     ser = QuestionGetSerializer()
+#     return Response(ser.data, status=status.HTTP_200_OK)
