@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import QuestionSerializer, AnswerSerializer, QuestionScoreSerializer, AnswerScoreSerializer
-from .models import QuestionScore
+from .models import QuestionScore, AnswerScore
 from django.core import serializers
 
 # Create your views here.
@@ -42,34 +42,61 @@ def post_answer(request):
             return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # def set_question_score(userId, questionId, score):
-@api_view(['POST','PUT'])
+@api_view(['POST'])
 def post_question_score(request):
     if request.method == "POST":
-        ser = QuestionScoreSerializer(data=request.data)
-        if ser.is_valid():
-            ser.save()
-            return Response(ser.data, status=status.HTTP_201_CREATED)
-        else:
-            return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
-    elif request.method == 'PUT':
-        score = request.data
-        score_id = score.get('id', None)
-        if score_id:
-            inv_score = QuestionScore.objects.get(id=score_id)
-            inv_score.score = score.get('score', inv_score.score)
-            inv_score.save()
-        else:
-            tmp = QuestionScore.objects.create(**score)
-            score_id = tmp.pk
+        my_objects = list(QuestionScore.objects.filter(questionId=request.data.get('questionId')))
+        tmp = ""
+        flag = False
+        for question in my_objects:
+            if question.userId == request.data.get('userId'):
+                tmp = question
+                flag = True
+        if not flag:
+            ser = QuestionScoreSerializer(data=request.data)
+            if ser.is_valid():
+                ser.save()
+                return Response(ser.data, status=status.HTTP_201_CREATED)
+            else:
+                return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
+        else :
+            tmp.score = request.data.get('score')
+            tmp.save()
+            score_id = tmp.id
+            obj = QuestionScore.objects.get(id=score_id)
+            content = {
+                # "id": score_id,
+                "userId": obj.userId,
+                "questionId": obj.questionId,
+                "score": obj.score
+            }
+            return Response(content, status=status.HTTP_200_OK)
 
-        obj = QuestionScore.objects.get(id=score_id)
-        content = {
-            "id": score_id,
-            "userId": obj.userId,
-            "questionId": obj.questionId,
-            "score": obj.score
-        }
-        return Response(content, status=status.HTTP_200_OK)
+    #     ser = QuestionScoreSerializer(data=request.data)
+    #     if ser.is_valid():
+    #         ser.save()
+    #         return Response(ser.data, status=status.HTTP_201_CREATED)
+    #     else:
+    #         return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
+    # elif request.method == 'PUT':
+    #     score = request.data
+    #     score_id = score.get('id', None)
+    #     if score_id:
+    #         inv_score = QuestionScore.objects.get(id=score_id)
+    #         inv_score.score = score.get('score', inv_score.score)
+    #         inv_score.save()
+    #     else:
+    #         tmp = QuestionScore.objects.create(**score)
+    #         score_id = tmp.pk
+
+    #     obj = QuestionScore.objects.get(id=score_id)
+    #     content = {
+    #         "id": score_id,
+    #         "userId": obj.userId,
+    #         "questionId": obj.questionId,
+    #         "score": obj.score
+    #     }
+    #     return Response(content, status=status.HTTP_200_OK)
 
 
 
@@ -77,9 +104,31 @@ def post_question_score(request):
 @api_view(['POST'])
 def post_answer_score(request):
     if request.method == "POST":
-        ser = AnswerScoreSerializer(data=request.data)
-        if ser.is_valid():
-            ser.save()
-            return Response(ser.data, status=status.HTTP_201_CREATED)
-        else:
-            return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
+        # instance = get_object_or_404(Coach, pk=pk)
+        # tmp = get_object_or_404(AnswerScore, answerId = request.data.get('answerId'), userId = request.data.get('userId'))
+        my_objects = list(AnswerScore.objects.filter(answerId=request.data.get('answerId')))
+        tmp = ""
+        flag = False
+        for answer in my_objects:
+            if answer.userId == request.data.get('userId'):
+                tmp = answer
+                flag = True
+        if not flag:
+            ser = AnswerScoreSerializer(data=request.data)
+            if ser.is_valid():
+                ser.save()
+                return Response(ser.data, status=status.HTTP_201_CREATED)
+            else:
+                return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
+        else :
+            tmp.score = request.data.get('score')
+            tmp.save()
+            score_id = tmp.id
+            obj = AnswerScore.objects.get(id=score_id)
+            content = {
+                # "id": score_id,
+                "userId": obj.userId,
+                "answerId": obj.answerId,
+                "score": obj.score
+            }
+            return Response(content, status=status.HTTP_200_OK)
