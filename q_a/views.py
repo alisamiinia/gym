@@ -235,10 +235,13 @@ def get_user_answers(request, writerId):
     
 @api_view(['GET'])
 def search_questions(request, category, str):    
-    questions = Question.objects.filter(category=category)
+    if category == '-1':
+        questions = Question.objects.all()
+    else:
+        questions = Question.objects.filter(category=category)
     content = []
     for question in questions:
-        if str not in question.title:
+        if str != ' ' and str not in question.title:
             continue
         qs = QuestionSerializer(question)
         userScore = 0
