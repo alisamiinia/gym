@@ -35,7 +35,7 @@ urlpatterns = [
     path('<int:gymId>/customer/<int:customerId>', views.kick_customer),
     path('pending-customers-of-course/<int:pk>', views.pending_customers_of_course),
     path('accepted-customers-of-course/<int:pk>', views.accepted_customers_of_course),
-    
+    path('search_gym/<str:name>-<str:address>-<str:category>/', views.search_gym)
     ###############
 ]
 router = DefaultRouter()

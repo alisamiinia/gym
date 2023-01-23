@@ -241,6 +241,27 @@ def gym_of_owner(request, ownerId):
         except:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
+@api_view(['GET'])
+def search_gym(request, name, address, category):  
+    courses = Course.objects.all() 
+    if address != ' ':
+        for course in courses:
+            if address not in course.gym.adress:
+                courses.remove(course)
+    if name != ' ':
+        for course in courses:
+            if name not in course.gym.name:
+                courses.remove(course)
+    if category != ' ':
+        for course in courses:
+            if category not in course.CourseCategory:
+                courses.remove(course)
+    
+    gyms = []
+    for course in courses:
+        gyms.append(course.gym.json())
+    return Response(gyms, status=status.HTTP_200_OK)     
+
 class GymViewSet(viewsets.ModelViewSet):
     queryset = Gym.objects.all()
     serializer_class = GymSerializer

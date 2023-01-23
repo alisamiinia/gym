@@ -19,7 +19,7 @@ class article(models.Model):
     articleContent = models.TextField()
     readDuration = models.CharField(max_length=250)
     PicUrl = models.TextField(null=True)
-    description = models.CharField(max_length=250,null=True)
+    description = models.CharField(max_length=250,null=True,blank=True)
     writerName= models.CharField(max_length=250)
     articleCategory = models.ForeignKey(category,max_length=250,null=True,on_delete=models.CASCADE)
     isvalid=models.BooleanField(null=True)
