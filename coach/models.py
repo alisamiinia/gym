@@ -20,13 +20,13 @@ class Coach(models.Model):
     def json(self):
         return {
             "user_id" : self.user.id,
-            "name":self.user.first_name,
+            "name":self.user.first_name + " " + self.user.last_name,
             "description":self.description
         }
     def json1(self):
         return {
             "user_id" : self.user.id,
-            "name":self.user.first_name,
+            "name":self.user.first_name + " " + self.user.last_name,
             "description":self.description,
             "picUrl":self.user.picUrl
         }
