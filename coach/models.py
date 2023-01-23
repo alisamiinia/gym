@@ -23,6 +23,13 @@ class Coach(models.Model):
             "name":self.user.first_name,
             "description":self.description
         }
+    def json1(self):
+        return {
+            "user_id" : self.user.id,
+            "name":self.user.first_name,
+            "description":self.description,
+            "picUrl":self.user.picUrl
+        }
     
 class Detail(models.Model):
     detail = models.CharField(max_length=100)

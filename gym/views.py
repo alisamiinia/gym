@@ -294,7 +294,7 @@ def gym_coaches(request, pk):
     cards = Card.objects.filter(gym=pk)
     for card in cards:
         if card.coach.user_id not in ids:
-            coaches.append(card.coach.json())
+            coaches.append(card.coach.json1())
             ids.append(card.coach.user_id)
     print(coaches)
     return Response(coaches, status=status.HTTP_200_OK)
