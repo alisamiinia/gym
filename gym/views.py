@@ -243,20 +243,19 @@ def gym_of_owner(request, ownerId):
 
 @api_view(['GET'])
 def search_gym(request, name, address, category):  
-    courses = Course.objects.all() 
-    if address != ' ':
-        for course in courses:
-            if address not in course.gym.adress:
-                courses.remove(course)
-    if name != ' ':
-        for course in courses:
-            if name not in course.gym.name:
-                courses.remove(course)
-    if category != ' ':
-        for course in courses:
-            if category not in course.CourseCategory:
-                courses.remove(course)
-    
+    coursesss = Course.objects.all()
+    courses = []
+    for course in coursesss:
+        courses.append(course)
+        if address != ' ':
+                if address not in course.gym.adress:
+                    courses.remove(course)
+        if name != ' ':
+                if name not in course.gym.name:
+                    courses.remove(course)
+        if category != ' ':
+                if category not in course.CourseCategory:
+                    courses.remove(course)
     gyms = []
     for course in courses:
         gyms.append(course.gym.json())
